@@ -1,0 +1,272 @@
+[Mon May 29 16:18:19 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/favicon.ico
+[Mon May 29 16:18:19 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/favicon.ico
+[Mon May 29 16:35:58 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/login, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 16:36:07 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/login
+[Mon May 29 16:36:17 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/ListOnboard
+[Mon May 29 16:36:32 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/login
+[Mon May 29 16:36:39 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/login
+[Mon May 29 16:36:43 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/register
+[Mon May 29 16:36:48 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/register
+[Mon May 29 16:41:26 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/password, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 16:45:04 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/login, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 16:48:09 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/favicon.ico
+[Mon May 29 16:48:21 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/login, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 16:49:51 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/login, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 16:49:58 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/login, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 16:50:11 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/login, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 16:50:18 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/login
+[Mon May 29 16:51:05 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/login, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 16:51:14 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/login
+[Mon May 29 16:51:15 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/login
+[Mon May 29 17:00:23 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/login, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:00:25 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/login, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:02:33 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/public
+[Mon May 29 17:03:05 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:05 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:05 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:05 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:05 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:05 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:05 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:05 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:05 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:05 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:05 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:06 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:06 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:06 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:07 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:07 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:11 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/public
+[Mon May 29 17:03:27 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:27 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:27 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:27 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:27 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:27 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:27 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:27 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:27 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:27 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:27 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:27 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:27 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:27 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:28 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:03:28 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:04:18 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/public
+[Mon May 29 17:06:03 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/public
+[Mon May 29 17:07:43 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/public
+[Mon May 29 17:08:09 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/login, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:08:11 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/login, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:08:28 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/public
+[Mon May 29 17:08:33 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:08:33 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:08:33 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:08:33 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:08:33 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:08:33 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:08:33 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:08:33 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:08:33 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:08:33 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:08:33 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:08:34 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:08:34 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:08:34 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:08:34 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:08:34 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:08:42 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/login, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:10:13 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/login, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:14 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:14 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:14 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:14 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:14 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:14 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:14 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:14 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:14 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:14 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:14 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:14 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:14 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:14 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:14 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:15 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:15 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:15 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:15 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:15 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:15 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:15 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:15 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:15 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:15 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:15 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:15 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:15 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:15 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:15 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:16 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:17 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:18 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:18 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:18 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:18 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:18 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:18 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:18 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:18 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:18 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:18 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:18 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:19 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:19 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:19 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:19 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:19 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:20 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:20 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:20 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:20 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:20 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:20 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:21 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:21 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:21 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:21 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:21 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:21 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:21 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:21 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:21 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:25 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/login, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:36 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:36 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:36 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:36 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:36 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:20:58 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/login, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:04 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/public.login
+[Mon May 29 17:21:09 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/public
+[Mon May 29 17:21:14 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:14 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:14 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:14 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:14 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:14 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:14 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:14 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:14 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:14 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:14 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:14 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:15 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:15 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:35 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:36 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:36 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:36 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:36 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:36 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/bootstrap, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:46 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/login, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:21:48 2017] [error] [client 172.20.6.226] File does not exist: /var/www/html/blog/public/login, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:24:16 2017] [error] [client 172.20.16.234] File does not exist: /var/www/html/blog/public/login, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:38:23 2017] [error] [client 172.20.6.226] PHP Warning:  Unterminated comment starting line 10 in /var/www/html/blog/public/index.php on line 10
+[Mon May 29 17:38:23 2017] [error] [client 172.20.6.226] PHP Warning:  phpinfo(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /var/www/html/blog/public/index.php on line 2
+[Mon May 29 17:39:04 2017] [error] [client 172.20.16.234] PHP Warning:  Unterminated comment starting line 10 in /var/www/html/blog/public/index.php on line 10, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:39:04 2017] [error] [client 172.20.16.234] PHP Warning:  phpinfo(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /var/www/html/blog/public/index.php on line 2, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:45:20 2017] [error] [client 172.20.16.234] PHP Warning:  Unterminated comment starting line 10 in /var/www/html/blog/public/index.php on line 10, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:45:20 2017] [error] [client 172.20.16.234] PHP Warning:  phpinfo(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /var/www/html/blog/public/index.php on line 2, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 17:45:27 2017] [error] [client 172.20.16.234] PHP Warning:  Unterminated comment starting line 10 in /var/www/html/blog/public/index.php on line 10
+[Mon May 29 17:45:27 2017] [error] [client 172.20.16.234] PHP Warning:  phpinfo(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /var/www/html/blog/public/index.php on line 2
+[Mon May 29 17:48:27 2017] [error] [client 172.20.16.234] PHP Warning:  Unterminated comment starting line 10 in /var/www/html/blog/public/index.php on line 10
+[Mon May 29 17:48:27 2017] [error] [client 172.20.16.234] PHP Warning:  phpinfo(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /var/www/html/blog/public/index.php on line 2
+[Mon May 29 17:49:01 2017] [error] [client 172.20.6.226] PHP Warning:  Unterminated comment starting line 10 in /var/www/html/blog/public/index.php on line 10
+[Mon May 29 17:49:01 2017] [error] [client 172.20.6.226] PHP Warning:  phpinfo(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /var/www/html/blog/public/index.php on line 2
+[Mon May 29 18:20:37 2017] [error] [client 172.20.16.234] PHP Warning:  phpinfo(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /var/www/html/blog/public/index.php on line 2, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 18:22:22 2017] [error] [client 172.20.16.234] PHP Warning:  phpinfo(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /var/www/html/blog/public/index.php on line 2, referer: http://onboard.sinarmasmining.com/
+[Mon May 29 18:22:24 2017] [error] [client 172.20.16.234] PHP Warning:  phpinfo(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /var/www/html/blog/public/index.php on line 2
+[Mon May 29 18:22:27 2017] [error] [client 172.20.16.234] PHP Warning:  phpinfo(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /var/www/html/blog/public/index.php on line 2
+[Tue May 30 08:44:54 2017] [error] [client 172.20.1.180] PHP Fatal error:  Using $this when not in object context in /var/www/html/blog/app/Http/Helpers.php on line 26, referer: http://onboard.sinarmasmining.com/Onboard
+[Tue May 30 08:46:46 2017] [error] [client 172.20.1.180] PHP Fatal error:  Using $this when not in object context in /var/www/html/blog/app/Http/Helpers.php on line 19, referer: http://onboard.sinarmasmining.com/Onboard
