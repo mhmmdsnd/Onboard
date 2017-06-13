@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('sections', 'Employee')
+@section('title', 'New Employee')
 @section('content')
 <div class="page-header">
   <h1>Employee OnBoarding</h1>

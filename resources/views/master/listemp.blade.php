@@ -18,15 +18,12 @@
           <td width="100">{!! $value['company']->name !!}</td>
           <td width="100">{!! $value['division']->name !!}</td>
           <td width="100">{!! $value->joindate !!}</td>
-          @if ($value->exit_date)<td width="20" class="btn-success" align="right"> Already Resign 
-          @else <td width="20" class="btn-warning" align="right">
-          @if (statusWorkflow($value->id)) 
-            	On Progress Exit
-            @else 
-            <a href="{{ url('HRExit/'.$value->id) }}">
+          @if ($value->exit_date)<td width="20" class="btn-success" align="right"> Already Resign
+          @elseif(statusWorkflow($value->id)) <td width="20" class="btn-warning" align="right"> {!! statusWorkflow($value->id) !!}
+          @else <td width="20" align="right">
+          <a href="{{ url('HRExit/'.$value->id) }}">
            		<i class="ace-icon fa fa-sign-out bigger-120"></i> Exit
-           	</a> @endif
-           @endif </td>
+          </a>@endif</td>
       </tr>
         @endforeach
       </tbody>
