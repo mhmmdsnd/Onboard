@@ -88,19 +88,18 @@ class HRExitController extends Controller
         $checker = Workflow::where('request_id',$request_id)->where('it_category',$it_category)->first();
 
         #LOOP PREPARED ITEM & WORKFLOW DETAIL
-        foreach ($is_checked as $isc )
+       foreach ($is_checked as $isc )
         {
             wfstore_email($request_id,$isc,'',$it_category,$type_request);
         }
         #UPDATE DATE COMPLETED
         Workflow::where('id',$checker->id)->update(['comment'=>$comment,'completed_by'=>Auth::user()->id,'completed_at'=>Carbon::now()]);
-        #EMAIL TO REVIEWER
-        #sentemail(2,$request_id,'');
         $check_onboard = OnboardItem::where('onboard_id',$onboard_id)->count();
         $check_cleared = ClearedItem::where('onboard_id',$onboard_id)->count();
         if($check_onboard == $check_cleared)
         {
             Onboard::where('id',$onboard_id)->update(['exit_date'=>Carbon::now(),'updated_by'=>Auth::user()->id]); #UNTUK UPDATE SISTEM EXIT DATE
+            sentemail(2,$request_id,''); #EMAIL TO REVIEWER
         }
 
         Session::flash('flash_message', 'IT Area stage has been proceed!');

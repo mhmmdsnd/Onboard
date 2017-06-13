@@ -74,7 +74,7 @@
             try{ace.settings.loadState('sidebar')}catch(e){}
         </script>
 		<ul class="nav nav-list">
-		    @role(['admin','hr'])
+		    @role('admin','hr')
             <li class="">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-desktop"></i>

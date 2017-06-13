@@ -18,7 +18,9 @@ function dateWorkflow($request_id,$it_category,$holding_id,$company_id,$division
     #SUGGESTED LIST & COUNT WF DETAIL
 
     if ($data_req['type_request'] == 'join') $suggested = suggested_list($it_category,$holding_id,$company_id,$division_id,$position_id)->count();
-    else $suggested = OnboardItem::where('onboard_id',$data_req['onboard_id'])->count();
+    else $suggested = OnboardItem::whereHas('item',function ($q) use ($it_category) {
+        $q->where('item_category',$it_category);
+    })->where('onboard_id',$data_req['onboard_id'])->count();
 
     $wf_detail = WorkflowDetail::where('workflow_id',$result['id'])->count();
     ($result['completed_at']) ? $created_date = Carbon\Carbon::parse($result->completed_at)->format('Y-m-d') : $created_date = $wf_detail."/".$suggested;
@@ -62,24 +64,45 @@ function sentemail($stage,$id,$name)
         }
     } elseif ($stage == 2){
         $hrsent = RoleUser::with('users')->where('role_id', 5)->where('user_id','!=',1)->get();
-        $detail = OnRequest::with('onboard')->where('id',$id)->first();
+        $detail = OnRequest::with('onboard.division','onboard.position')->where('id',$id)->first();
         foreach ($hrsent as $hrinput) {
-            #INFORMATION ADD-ON
-            $hrinput = array_add($hrinput, 'request_id', $id);
-            $hrinput = array_add($hrinput, 'name',$detail->onboard->name);
-            $hrinput = array_add($hrinput, 'url',$url);
-            #MASTER ONBOARD
-            $suggested = suggested_detail('',$id,'review',1);
-            $infra = suggested_detail('',$id,'review',2);
-            $apps = suggested_detail('',$id,'review',3);
-            try {
-                Mail::send('emails.hrmail', ['sent' => $hrinput,'suggested'=>$suggested,'infra'=>$infra,'apps'=>$apps], function ($m) use ($hrinput) {
-                    $m->from("npd@sinarmasmining.com", null);
-                    $m->to($hrinput['users']['email'], null)->subject('Review Employee Onboarding : '.$hrinput['name']);
-                });
-            } catch (\Exception $error) {
-                #echo $error;
+            if($detail->type_request == 'join')
+            {
+                #INFORMATION ADD-ON
+                $hrinput = array_add($hrinput, 'request_id', $id);
+                $hrinput = array_add($hrinput, 'name',$detail->onboard->name);
+                $hrinput = array_add($hrinput, 'url',$url);
+                $hrinput = array_add($hrinput, 'type_request',$detail->type_request);
+                #MASTER ONBOARD
+                $suggested = suggested_detail('',$id,'review',1);
+                $infra = suggested_detail('',$id,'review',2);
+                $apps = suggested_detail('',$id,'review',3);
+                /*try {
+                    Mail::send('emails.hrmail', ['sent' => $hrinput,'suggested'=>$suggested,'infra'=>$infra,'apps'=>$apps], function ($m) use ($hrinput) {
+                        $m->from("npd@sinarmasmining.com", null);
+                        $m->to($hrinput['users']['email'], null)->subject('Review Employee Onboarding : '.$hrinput['name']);
+                    });
+                } catch (\Exception $error) {
+                    #echo $error;
+                }*/
+            } else{
+                #INFORMATION ADD-ON
+                $hrinput = array_add($hrinput, 'request_id', $id);
+                $hrinput = array_add($hrinput, 'name',$detail->onboard->name);
+                $hrinput = array_add($hrinput, 'url',$url);
+                $hrinput = array_add($hrinput, 'type_request',$detail->type_request);
+                $hrinput = array_add($hrinput, 'division',$detail->onboard->division->name);
+                $hrinput = array_add($hrinput, 'position',$detail->onboard->position->name);
+                try {
+                    Mail::send('emails.hrmail', ['sent' => $hrinput], function ($m) use ($hrinput) {
+                        $m->from("npd@sinarmasmining.com", null);
+                        $m->to($hrinput['users']['email'], null)->subject('Employee Clearance Confirmation : '.$hrinput['name']);
+                    });
+                } catch (\Exception $error) {
+                    #echo $error;
+                }
             }
+
         }
     } elseif ($stage == 3) {
         $sent = OnRequest::with('onboard.company','onboard.subdivision')->where('id',$id)->first();
@@ -122,24 +145,27 @@ function sentemail($stage,$id,$name)
         }
     }elseif ($stage == 5){ #EXIT EMAL PROCESS
         $sent = RoleUser::with('users')->whereIn('role_id',[2,3,4])->where('user_id','!=',1)->get();
-        $data_user = OnRequest::with('onboard')->where('id',$id)->first();
+        $data_user = OnRequest::with('onboard.division','onboard.position')->where('id',$id)->first();
         foreach ($sent as $input){
             if($input->role_id == 2) $url_role = "ITAdm";
             elseif ($input->role_id == 3) $url_role = "ITInfra";
             elseif ($input->role_id == 4) $url_role = "ITApps";
-            $input = array_add($input,'name',$data_user->name);
+            $input = array_add($input,'name',$data_user->onboard->name);
             $data_mail = array(
                 'itname' => $input->users->name,
-                'name' => $data_user->name,'request_id' => $id,
-                'user_type' =>$url_role,'url'=>$url
+                'name' => $data_user->onboard->name,'request_id' => $id,
+                'user_type' =>$url_role,'url'=>$url,
+                'type_request'=>$data_user->type_request,
+                'division'=>$data_user->onboard->division->name,
+                'position'=>$data_user->onboard->position->name
             );
             try{
                 Mail::send('emails.emails',['data'=>$data_mail],function ($m) use ($input) {
                     $m->from("npd@sinarmasmining.com", null);
-                    $m->to($input['users']['email'], null)->subject('Exit Employee OnBoarding : '.$input['name']);
+                    $m->to($input['users']['email'], null)->subject('Employee Clearance Request : '.$input['name']);
                 });
             } catch (\Exception $error){
-                #echo $error;
+                echo $error;
             }
         }
     }

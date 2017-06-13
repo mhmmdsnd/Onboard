@@ -1,14 +1,17 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="{{ asset('/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('/bootstrap/css/jquery-ui.min.css') }}" rel="stylesheet" type="text/css" />
-</head>
-<body>
+@extends('layouts.emails')
+@section('title', 'HR Employee')
+@section('content')
 <div class="container">
 Dear {!! $sent['users']->name !!},<br />
 <br />
+
+@if($sent['type_request']=='exit')
+With this email, we’ve confirmed that all items owned by, <br />
+Name: {!! $sent['name'] !!} <br />
+Division: {!! $sent['division'] !!} <br />
+Position: {!! $sent['position'] !!} <br />
+Have been cleared, <br />
+@else
 Please review items below:<br />
 <!-- START ONBOARD DETAIL -->
 <div class="row">
@@ -84,15 +87,12 @@ Please review items below:<br />
 </div>
 <div class="space-24"></div>
 <!-- END ONBOARD DETAIL -->
-
 <br />
 For Detail : <br />
 {!! $sent['url'] !!}/Review/{!! $sent['request_id'] !!}<br />
 <br />
+@endif
 <br />
 Thank you for your cooperation.
 </div>
-@section('custom-page-script')
 @stop
-</body>
-</html>
