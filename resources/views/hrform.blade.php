@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('sections', 'Employee')
+@section('title', 'New Employee')
 @section('content')
 <div class="page-header">
   <h1>Employee OnBoarding</h1>
@@ -39,7 +41,7 @@
         </div>
     </div>
     <div class="form-group">
-     	{!! Form::label('name', 'Position *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+     	{!! Form::label('name', 'Level *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
         <div class="col-sm-9">
 		{!! Form::select('position_id',$position, null, ['placeholder' => 'Please Select...']) !!}
     	</div>

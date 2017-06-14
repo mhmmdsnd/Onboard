@@ -46,7 +46,7 @@
                                 <i class="ace-icon fa fa-caret-right blue"></i>Division : <b class="red">{!! $detail['division']->name !!}</b>
                             </li>
                             <li>
-                                <i class="ace-icon fa fa-caret-right blue"></i>Grade : <b class="red">{!! $detail['grade']->name !!} </b>
+                                <i class="ace-icon fa fa-caret-right blue"></i>Level : <b class="red">{!! $detail['position']->name !!} </b>
                             </li>
                             <li>
                                 <i class="ace-icon fa fa-caret-right blue"></i>Join Date : <b class="red">{!! $detail->joindate !!}</b>

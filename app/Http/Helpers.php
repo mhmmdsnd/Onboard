@@ -28,9 +28,14 @@ function dateWorkflow($request_id,$it_category,$holding_id,$company_id,$division
 }
 function statusWorkflow($onboard_id)
 {
-    $result = OnRequest::where('onboard_id',$onboard_id)->first()->pluck('type_request');
+    $result = OnRequest::where('onboard_id',$onboard_id)->first();
+    if(!$result['delivery_date']){
+        $hasil = "On Progress Onboard";
+    }elseif ($result['type_request']=='exit'){
+        $hasil = "On Progress Exit";
+    }else $hasil = null;
 
-    return $result;
+    return $hasil;
 }
 #END DATEWORKFLOW
 #START SEND EMAIL
@@ -51,7 +56,7 @@ function sentemail($stage,$id,$name)
                 'itname' => $input->users->name,
                 'name' => $name,'request_id' => $id,
                 'user_type' =>$url_role,
-                'url'=>$url
+                'url'=>$url, 'type_request'=>'join'
             );
             try{
                 Mail::send('emails.emails',['data'=>$data_mail],function ($m) use ($input) {
@@ -77,14 +82,14 @@ function sentemail($stage,$id,$name)
                 $suggested = suggested_detail('',$id,'review',1);
                 $infra = suggested_detail('',$id,'review',2);
                 $apps = suggested_detail('',$id,'review',3);
-                /*try {
+                try {
                     Mail::send('emails.hrmail', ['sent' => $hrinput,'suggested'=>$suggested,'infra'=>$infra,'apps'=>$apps], function ($m) use ($hrinput) {
                         $m->from("npd@sinarmasmining.com", null);
                         $m->to($hrinput['users']['email'], null)->subject('Review Employee Onboarding : '.$hrinput['name']);
                     });
                 } catch (\Exception $error) {
                     #echo $error;
-                }*/
+                }
             } else{
                 #INFORMATION ADD-ON
                 $hrinput = array_add($hrinput, 'request_id', $id);

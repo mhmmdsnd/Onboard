@@ -126,38 +126,6 @@ class OnboardController extends Controller
         return view('admform',compact('req','detail','suggested','infra','apps','list'));
     }
     #TRIAL ALL TEAM IT USING THIS CONTROLLER
-    public function itshow($request_id)
-    {
-        $req = OnRequest::where('id',$request_id)->first();
-        $detail = Onboard::with('company','division','workplace','position')->where('id',$req['onboard_id'])->first();
-
-        $type_request = $req->type_request;
-        $holding_id = $detail['company']['holdingId'];
-        $company_id = $detail['company_id'];
-        $division_id = $detail['division_id'];
-        $position_id = $detail['position_id'];
-
-        #UNTUK AMBIL DATA LIST ITEM
-        if($type_request == 'join')
-        {
-            $list = PreparedItem::where('request_id',$request_id)->get()->pluck('item_id')->toArray();
-
-            $suggested = suggested_list(1,$holding_id,$company_id,$division_id,$position_id);
-            $infra = suggested_list(2,$holding_id,$company_id,$division_id,$position_id);
-            $apps = suggested_list(3,$holding_id,$company_id,$division_id,$position_id);
-        }
-        else
-        {
-            #DATA CHECKED ITEM
-            $list = ClearedItem::where('onboard_id',$req['onboard_id'])->get()->pluck('item_id')->toArray();
-
-            $suggested = suggested_detail($req['onboard_id'],'','',1);
-            $infra = suggested_detail($req['onboard_id'],'','',2);
-            $apps = suggested_detail($req['onboard_id'],'','',3);
-        }
-
-        return view('appsform',compact('req','detail','suggested','infra','apps','list'));
-    }
     public function itstore(Request $request){
         #MASTER ONBOARD
         $it_category = $request->input('it_category');
@@ -418,7 +386,6 @@ class OnboardController extends Controller
             $apps = suggested_detail($req['onboard_id'],'','',3);
         }
 
-
         $wf_comment = Workflow::where('request_id',$request_id)->where('it_category',4)->first();
         $us_comment = Workflow::where('request_id',$request_id)->where('it_category',5)->first();
 
@@ -426,7 +393,7 @@ class OnboardController extends Controller
         if(Auth::user()->hasRole('admin')){
             return view('useradmin',compact('req','detail','suggested','infra','apps','employee','wf_comment','us_comment')); #
         } else {
-            return view('userview',compact('req','detail','suggested','infra','apps','employee','wf_comment')); #
+            return view('userview',compact('req','detail','suggested','infra','apps','employee','wf_comment','us_comment')); #
         }
 
     }

@@ -22,19 +22,16 @@ Route::get('/ListOnBoard/usermail', 'ListboardController@usermail');
 
 Route::group(['middleware' => ['role:itadmin|admin']], function() {    #ITADMIN
     Route::get('/ITAdm/{onboardId}','OnboardController@itadm');
-    #Route::post('/ITAdm','OnboardController@itadmstore');
     Route::post('/ITAdm', ['as'=>'ITAdm','uses'=>'OnboardController@itstore']);
 });
 
 Route::group(['middleware' => ['role:itinfra|admin']], function() {  #ITINFRA
     Route::get('/ITInfra/{onboardId}','OnboardController@itinf');
-    #Route::post('/ITInfra','OnboardController@itinfstore');
     Route::post('/ITInfra', ['as'=>'ITInfra','uses'=>'OnboardController@itstore']);
 });
 
 Route::group(['middleware' => ['role:itapps|admin']], function() {  #ITAPPS
     Route::get('/ITApps/{onboardId}','OnboardController@itapp');
-    #Route::post('/ITApps','OnboardController@itappstore');
     Route::post('/ITApps', ['as'=>'ITApps','uses'=>'OnboardController@itstore']);
 });
 

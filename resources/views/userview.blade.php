@@ -49,7 +49,7 @@
                                 <i class="ace-icon fa fa-caret-right blue"></i>Department : <b class="red">{!! $detail['subdivision']->name !!}</b>
                             </li>
                             <li>
-                                <i class="ace-icon fa fa-caret-right blue"></i>Position : <b class="red">{!! $detail['position']->name !!}</b>
+                                <i class="ace-icon fa fa-caret-right blue"></i>Level : <b class="red">{!! $detail['position']->name !!}</b>
                             </li>
                             <li>
                                 <i class="ace-icon fa fa-caret-right blue"></i>Join Date : <b class="red">{!! $detail->joindate !!}</b>
@@ -81,7 +81,8 @@
                             @foreach($suggested as $key=>$value)
                             <div class="checkbox">
                             <label>
-                                {!! Form::checkbox('admin['.$key.']',$value['item_id'],in_array($value['item_id'],$employee) ? 'checked' : '',['class'=>'ace']) !!}
+                                @if(!$req->delivery_date) {!! Form::checkbox('admin['.$key.']',$value['item_id'],in_array($value['item_id'],$employee) ? 'checked' : '',['class'=>'ace']) !!}
+                                @else {!! Form::checkbox('admin',$value['item_id'],in_array($value['item_id'],$employee) ? 'checked' : '',['class'=>'ace','disabled'=>'disabled']) !!} @endif
                                 <span class="lbl"> {!! $value['item']->name !!}</span>
                             </label>
                             </div>
@@ -102,7 +103,7 @@
                             @foreach($infra as $key=>$value)
                             <div class="checkbox">
                             <label>
-                                {!! Form::checkbox('infra['.$key.']',$value['item_id'],in_array($value['item_id'],$employee) ? 'checked' : '',['class'=>'ace']) !!}                               
+                                @if(!$req->delivery_date) {!! Form::checkbox('infra['.$key.']',$value['item_id'],in_array($value['item_id'],$employee) ? 'checked' : '',['class'=>'ace']) !!}                                @else {!! Form::checkbox('infra',$value['item_id'],in_array($value['item_id'],$employee) ? 'checked' : '',['class'=>'ace','disabled'=>'disabled']) !!} @endif
                                 <span class="lbl"> {!! $value['item']->name !!}</span>
                             </label>
                             </div>
@@ -123,7 +124,7 @@
                             @foreach($apps as $key=>$value)
                             <div class="checkbox">
                             <label>
-                                {!! Form::checkbox('apps['.$key.']',$value['item_id'],in_array($value['item_id'],$employee) ? 'checked' : '',['class'=>'ace']) !!}                               
+                                @if(!$req->delivery_date){!! Form::checkbox('apps['.$key.']',$value['item_id'],in_array($value['item_id'],$employee) ? 'checked' : '',['class'=>'ace']) !!}                               @else {!! Form::checkbox('apps',$value['item_id'],in_array($value['item_id'],$employee) ? 'checked' : '',['class'=>'ace','disabled'=>'disabled']) !!} @endif
                                 <span class="lbl"> {!! $value['item']->name !!}</span>
                             </label>
                             </div>
@@ -145,7 +146,7 @@
             <div class="form-group">
                 {!! Form::label('name', 'Comments', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
                 <div class="col-sm-9">
-                {!! Form::textarea('comment', null, ['class' => 'form-control']) !!}
+                @if(!$req->delivery_date){!! Form::textarea('comment', null, ['class' => 'form-control']) !!}@else{!! $us_comment['comment'] !!}@endif
             	</div>
     		</div>    
             </div>
