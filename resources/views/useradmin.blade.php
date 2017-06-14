@@ -48,7 +48,7 @@
                                 <i class="ace-icon fa fa-caret-right blue"></i>Department : <b class="red">{!! $detail['subdivision']->name !!}</b>
                             </li>
                             <li>
-                                <i class="ace-icon fa fa-caret-right blue"></i>Position : <b class="red">{!! $detail['position']->name !!}</b>
+                                <i class="ace-icon fa fa-caret-right blue"></i>Level : <b class="red">{!! $detail['position']->name !!}</b>
                             </li>
                             <li>
                                 <i class="ace-icon fa fa-caret-right blue"></i>Join Date : <b class="red">{!! $detail->joindate !!}</b>
