@@ -72,7 +72,7 @@
                     </div>
 					<div class="widget-body">
 						<div class="widget-main">  
-                            @foreach($suggested as $key=>$value)
+                            @foreach($suggested[1] as $key=>$value)
                             <div class="checkbox">
                             <label>
                                 {!! Form::checkbox('admin['.$key.']',$value['item_id'],in_array($value['item_id'],$checker) ? 'checked' : '',['class'=>'ace']) !!}
@@ -96,7 +96,7 @@
                 	</div>
 					<div class="widget-body">
 						<div class="widget-main">  
-                            @foreach($infra as $key=>$value)
+                            @foreach($suggested[2] as $key=>$value)
                             <div class="checkbox">
                             <label>
                                 {!! Form::checkbox('infra['.$key.']',$value['item_id'],in_array($value['item_id'],$checker) ? 'checked' : '',['class'=>'ace']) !!}                               
@@ -120,7 +120,7 @@
                 	</div>
 					<div class="widget-body">
 						<div class="widget-main">  
-                            @foreach($apps as $key=>$value)
+                            @foreach($suggested[3] as $key=>$value)
                             <div class="checkbox">
                             <label>
                                 {!! Form::checkbox('apps['.$key.']',$value['item_id'],in_array($value['item_id'],$checker) ? 'checked' : '',['class'=>'ace']) !!}                               

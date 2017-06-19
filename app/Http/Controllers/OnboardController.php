@@ -92,39 +92,6 @@ class OnboardController extends Controller
         Session::flash('flash_message', 'New Employee Onboarding succesfully added!');
         return redirect()->action('ListboardController@index');
     }
-    #START IT ADMIN
-    public function itadm($onboardId)
-    {
-        $req = OnRequest::where('id',$onboardId)->first();
-        $detail = Onboard::with('company','division','subdivision','workplace','position')->where('id',$req['onboard_id'])->first();
-
-        $type_request = $req->type_request;
-        $holding_id = $detail['company']['holdingId'];
-        $company_id = $detail['company_id'];
-        $division_id = $detail['division_id'];
-        $position_id = $detail['position_id'];
-
-        #UNTUK AMBIL DATA LIST ITEM
-        if($type_request == 'join')
-        {
-            $list = PreparedItem::where('request_id',$onboardId)->get()->pluck('item_id')->toArray();
-
-            $suggested = suggested_list(1,$holding_id,$company_id,$division_id,$position_id);
-            $infra = suggested_list(2,$holding_id,$company_id,$division_id,$position_id);
-            $apps = suggested_list(3,$holding_id,$company_id,$division_id,$position_id);
-        }
-        else
-        {
-            #DATA CHECKED ITEM
-            $list = ClearedItem::where('onboard_id',$req['onboard_id'])->get()->pluck('item_id')->toArray();
-
-            $suggested = suggested_detail($req['onboard_id'],'','',1);
-            $infra = suggested_detail($req['onboard_id'],'','',2);
-            $apps = suggested_detail($req['onboard_id'],'','',3);
-        }
-
-        return view('admform',compact('req','detail','suggested','infra','apps','list'));
-    }
     #TRIAL ALL TEAM IT USING THIS CONTROLLER
     public function itstore(Request $request){
         #MASTER ONBOARD
@@ -189,6 +156,7 @@ class OnboardController extends Controller
                 $cr_users->name = $users->name;
                 $cr_users->email = $emails;
                 $cr_users->password = bcrypt('123456');
+                $cr_users->employee_id = $onboard_id; #penambahan employee id (untuk mendapatkan data divisi)
                 $cr_users->save();
                 #CREATE ROLE USER
                 $cr_users->attachRole(6);
@@ -198,6 +166,40 @@ class OnboardController extends Controller
 
         Session::flash('flash_message', 'IT Area stage has been proceed!');
         return redirect()->action('ListboardController@index');
+    }
+    #START IT ADMIN
+    public function itadm($onboardId)
+    {
+        $req = OnRequest::where('id',$onboardId)->first();
+        $detail = Onboard::with('company','division','subdivision','workplace','position')->where('id',$req['onboard_id'])->first();
+
+        $type_request = $req->type_request;
+        $holding_id = $detail['company']['holdingId'];
+        $company_id = $detail['company_id'];
+        $division_id = $detail['division_id'];
+        $position_id = $detail['position_id'];
+
+        #UNTUK AMBIL DATA LIST ITEM
+        if($type_request == 'join')
+        {
+            $list = PreparedItem::where('request_id',$onboardId)->get()->pluck('item_id')->toArray();
+
+            #TRIAL LOOP SUGGESTED LIST BERDASARKAN SUBDIVISION
+            $result = Subdivision::distinct()->whereHas('item.suggested_list',function ($q) use ($division_id) {})->get()->pluck('id');
+            foreach ($result as $subdivision){
+                $suggested[$subdivision] = suggested_list($subdivision,$holding_id,$company_id,$division_id,$position_id);
+            }
+        }
+        else
+        {
+            #DATA CHECKED ITEM
+            $list = ClearedItem::where('onboard_id',$req['onboard_id'])->get()->pluck('item_id')->toArray();
+            for($i=1;$i<=3;$i++) {
+                $suggested[$i] = suggested_detail($req['onboard_id'],'','',$i);
+            }
+        }
+
+        return view('admform',compact('req','detail','suggested','infra','apps','list'));
     }
     #START IT INFRA
     public function itinf($onboardId)
@@ -216,21 +218,24 @@ class OnboardController extends Controller
         {
             $list = PreparedItem::where('request_id',$onboardId)->get()->pluck('item_id')->toArray();
 
-            $suggested = suggested_list(1,$holding_id,$company_id,$division_id,$position_id);
-            $infra = suggested_list(2,$holding_id,$company_id,$division_id,$position_id);
-            $apps = suggested_list(3,$holding_id,$company_id,$division_id,$position_id);
+            #TRIAL LOOP SUGGESTED LIST BERDASARKAN SUBDIVISION
+            $result = Subdivision::distinct()->whereHas('item.suggested_list',function ($q) use ($division_id) {})->get()->pluck('id');
+            foreach ($result as $subdivision){
+                $suggested[$subdivision] = suggested_list($subdivision,$holding_id,$company_id,$division_id,$position_id);
+            }
         }
         else
         {
             #DATA CHECKED ITEM
             $list = ClearedItem::where('onboard_id',$req['onboard_id'])->get()->pluck('item_id')->toArray();
 
-            $suggested = suggested_detail($req['onboard_id'],'','',1);
-            $infra = suggested_detail($req['onboard_id'],'','',2);
-            $apps = suggested_detail($req['onboard_id'],'','',3);
+            for($i=1;$i<=3;$i++)
+            {
+                $suggested[$i] = suggested_detail($req['onboard_id'],'','',$i);
+            }
         }
 
-        return view('infraform',compact('req','detail','suggested','infra','apps','list'));
+        return view('infraform',compact('req','detail','suggested','list'));
     }
     #START IT APPS
     public function itapp($onboardId)
@@ -249,21 +254,23 @@ class OnboardController extends Controller
         {
             $list = PreparedItem::where('request_id',$onboardId)->get()->pluck('item_id')->toArray();
 
-            $suggested = suggested_list(1,$holding_id,$company_id,$division_id,$position_id);
-            $infra = suggested_list(2,$holding_id,$company_id,$division_id,$position_id);
-            $apps = suggested_list(3,$holding_id,$company_id,$division_id,$position_id);
+            #TRIAL LOOP SUGGESTED LIST BERDASARKAN SUBDIVISION
+            $result = Subdivision::distinct()->whereHas('item.suggested_list',function ($q) use ($division_id) {})->get()->pluck('id');
+            foreach ($result as $subdivision){
+                $suggested[$subdivision] = suggested_list($subdivision,$holding_id,$company_id,$division_id,$position_id);
+            }
         }
         else
         {
             #DATA CHECKED ITEM
             $list = ClearedItem::where('onboard_id',$req['onboard_id'])->get()->pluck('item_id')->toArray();
-
-            $suggested = suggested_detail($req['onboard_id'],'','',1);
-            $infra = suggested_detail($req['onboard_id'],'','',2);
-            $apps = suggested_detail($req['onboard_id'],'','',3);
+            for($i=1;$i<=3;$i++)
+            {
+                $suggested[$i] = suggested_detail($req['onboard_id'],'','',$i);
+            }
         }
 
-        return view('appsform',compact('req','detail','suggested','infra','apps','list'));
+        return view('appsform',compact('req','detail','suggested','list'));
     }
     #CHECKER AREA
     public function reviewer($request_id)
@@ -277,22 +284,24 @@ class OnboardController extends Controller
             #DATA CHECKED ITEM
             $checker = CheckedItem::where('request_id',$request_id)->get()->pluck('item_id')->toArray();
 
-            $suggested = suggested_detail('',$request_id,'review',1);
-            $infra = suggested_detail('',$request_id,'review',2);
-            $apps = suggested_detail('',$request_id,'review',3);
+            for($i=1;$i<=3;$i++)
+            {
+                $suggested[$i] = suggested_detail('',$request_id,'review',$i);
+            }
         } else {
             #DATA CHECKED ITEM
             $checker = ClearedItem::where('onboard_id',$req['onboard_id'])->get()->pluck('item_id')->toArray();
 
-            $suggested = suggested_detail($req['onboard_id'],'','',1);
-            $infra = suggested_detail($req['onboard_id'],'','',2);
-            $apps = suggested_detail($req['onboard_id'],'','',3);
+            for($i=1;$i<=3;$i++)
+            {
+                $suggested[$i] = suggested_detail($req['onboard_id'],'','',$i);
+            }
         }
 
         for($i=1;$i<=3;$i++){
             $wf_comment[$i] = Workflow::where('request_id',$request_id)->where('it_category',$i)->first();
         }
-        return view('reviewer',compact('req','detail','suggested','infra','apps','checker','wf_comment'));
+        return view('reviewer',compact('req','detail','suggested','checker','wf_comment'));
     }
     public function createstore(Request $request)
     {
@@ -376,14 +385,17 @@ class OnboardController extends Controller
         $employee = OnboardItem::where('onboard_id',$req['onboard_id'])->get()->pluck('item_id')->toArray();
         #MASTER ONBOARD
         if($type_request == 'join'){
-            $suggested = suggested_detail('',$request_id,'',1);
-            $infra = suggested_detail('',$request_id,'',2);
-            $apps = suggested_detail('',$request_id,'',3);
+            for($i=1;$i<=3;$i++)
+            {
+                $suggested[$i] = suggested_detail('',$request_id,'',$i);
+            }
+
         } else
         {
-            $suggested = suggested_detail($req['onboard_id'],'','',1);
-            $infra = suggested_detail($req['onboard_id'],'','',2);
-            $apps = suggested_detail($req['onboard_id'],'','',3);
+            for($i=1;$i<=3;$i++)
+            {
+                $suggested[$i] = suggested_detail($req['onboard_id'],'','',$i);
+            }
         }
 
         $wf_comment = Workflow::where('request_id',$request_id)->where('it_category',4)->first();

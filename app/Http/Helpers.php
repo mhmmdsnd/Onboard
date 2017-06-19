@@ -19,7 +19,7 @@ function dateWorkflow($request_id,$it_category,$holding_id,$company_id,$division
 
     if ($data_req['type_request'] == 'join') $suggested = suggested_list($it_category,$holding_id,$company_id,$division_id,$position_id)->count();
     else $suggested = OnboardItem::whereHas('item',function ($q) use ($it_category) {
-        $q->where('item_category',$it_category);
+        $q->where('subdivision_id',$it_category);
     })->where('onboard_id',$data_req['onboard_id'])->count();
 
     $wf_detail = WorkflowDetail::where('workflow_id',$result['id'])->count();
@@ -180,8 +180,8 @@ function sentemail($stage,$id,$name)
 function suggested_list($it_category,$holding_id,$company_id,$division_id,$position_id)
 {
     #SUGGESTED LIST (UPDATE)
-    $suggested = SuggestedList::whereHas('item',function ($q) use ($it_category) {
-        $q->where('item_category',$it_category);
+    $suggested = SuggestedList::whereHas('item.subdivision',function ($q) use ($it_category) {
+        $q->where('subdivision_id',$it_category);
     })
         ->where(function ($query) use ($holding_id){
             $query->where('holding_id',$holding_id)->orWhere('holding_id',0);
@@ -281,26 +281,24 @@ function wfstore_email($request_id,$item_id,$comment,$it_category,$type_request=
 }
 #SUGGESTED LIST FOR CHECKER,USERS,HR
 function suggested_detail($onboard_id,$request_id,$area,$it_category){
-
     if($request_id)
     {
         if($area == "review"){
             $suggested_detail = PreparedItem::with('workflows')->whereHas('item',function ($q) use ($it_category) {
-                $q->where('item_category',$it_category);
+                $q->where('subdivision_id',$it_category);
             })->where('request_id',$request_id)->get();
 
         }else{
             $suggested_detail = CheckedItem::whereHas('item',function ($q) use ($it_category) {
-                $q->where('item_category',$it_category);
+                $q->where('subdivision_id',$it_category);
             })->where('request_id',$request_id)->get();
         }
 
     } elseif ($onboard_id)
     {
         $suggested_detail = OnboardItem::whereHas('item',function ($q) use ($it_category) {
-            $q->where('item_category',$it_category);
+            $q->where('subdivision_id',$it_category);
         })->where('onboard_id',$onboard_id)->get();
     }
     return $suggested_detail;
-
 }

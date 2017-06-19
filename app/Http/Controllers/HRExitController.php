@@ -31,6 +31,7 @@ class HRExitController extends Controller
         $title = "exit";
         $now = Carbon::now();
         $role = RoleUser::where('user_id',Auth::user()->id)->pluck('role_id')->first();
+        #UNTUK MELAKUKAN PROSES AMBIL URL
         if($role == 2) $url = "ITAdm";
         elseif ($role == 3) $url = "ITInfra";
         elseif ($role == 4) $url = "ITApps";
@@ -45,11 +46,12 @@ class HRExitController extends Controller
 
         $detail = Onboard::with('company','division','workplace','position')->where('id',$onboard_id)->first();
         #MASTER ONBOARD
-        $suggested = suggested_detail($onboard_id,'','',1);
-        $infra = suggested_detail($onboard_id,'','',2);
-        $apps = suggested_detail($onboard_id,'','',3);
+        for($i=1;$i<=3;$i++)
+        {
+            $suggested[$i] = suggested_detail($onboard_id,'','',$i);
+        }
 
-        return view('exitform',compact('detail','suggested','infra','apps'));
+        return view('exitform',compact('detail','suggested'));
     }
     public function store(Request $request){
         #CALL ONBOARD

@@ -11,4 +11,7 @@ class Subdivision extends Model
     public function division(){
         return $this->belongsTo(Division::class);
     }
+    public function item(){
+        return $this->hasMany(Item::class,'subdivision_id','id');
+    }
 }

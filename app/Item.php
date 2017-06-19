@@ -13,5 +13,11 @@ class Item extends Model
     public function itemcategory(){
         return $this->hasOne(ItemCategory::class,'id','item_category');
     }
+    public function subdivision(){
+        return $this->hasOne(Subdivision::class,'id','subdivision_id');
+    }
+    public function suggested_list(){
+        return $this->hasMany(SuggestedList::class,'item_id','id');
+    }
 
 }

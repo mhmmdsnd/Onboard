@@ -77,7 +77,7 @@
                     </div>
 					<div class="widget-body">
 						<div class="widget-main">  
-                            @foreach($suggested as $key=>$value)
+                            @foreach($suggested[1] as $key=>$value)
                             <div class="checkbox">
                             <label>
                                 {!! Form::checkbox('admin['.$key.']',$value['item_id'],in_array($value['item_id'],$employee) ? 'checked' : '',['class'=>'ace','disabled'=>true]) !!}
@@ -98,7 +98,7 @@
                 	</div>
 					<div class="widget-body">
 						<div class="widget-main">  
-                            @foreach($infra as $key=>$value)
+                            @foreach($suggested[2] as $key=>$value)
                             <div class="checkbox">
                             <label>
                                 {!! Form::checkbox('infra['.$key.']',$value['item_id'],in_array($value['item_id'],$employee) ? 'checked' : '',['class'=>'ace','disabled'=>true]) !!}                               
@@ -119,7 +119,7 @@
                 	</div>
 					<div class="widget-body">
 						<div class="widget-main">  
-                            @foreach($apps as $key=>$value)
+                            @foreach($suggested[3] as $key=>$value)
                             <div class="checkbox">
                             <label>
                                 {!! Form::checkbox('apps['.$key.']',$value['item_id'],in_array($value['item_id'],$employee) ? 'checked' : '',['class'=>'ace','disabled'=>true]) !!}                               
@@ -133,7 +133,54 @@
             </div>
             <!-- END IT APPLICATION -->
             </div>
+            <div class="space-10"></div>
+            <!-- START ONBOARD DETAIL -->
+            <div class="row">
+            	<!-- START GA Division -->
+                <div class="col-xs-12 col-sm-4">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title">GA Division</h4>
+                        </div>
+                        <div class="widget-body">
+                            <div class="widget-main">  
+                                @foreach($suggested[3] as $key=>$value)
+                                <div class="checkbox">
+                                <label>
+                                    {!! Form::checkbox('apps','1',in_array($value['item_id'],$list) ? 'checked' : '',['class'=>'ace','disabled'=>true]) !!}                               
+                                    <span class="lbl">	{!! $value['item']->name !!}</span>
+                                </label>
+                                </div>
+                                @endforeach
+                            </div>											
+                        </div>                    
+                    </div>
+            	</div>
+                <!-- END GA Division -->
+                <!-- START HR Division -->
+                <div class="col-xs-12 col-sm-4">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title">HR Division</h4>
+                        </div>
+                        <div class="widget-body">
+                            <div class="widget-main">  
+                                @foreach($suggested[3] as $key=>$value)
+                                <div class="checkbox">
+                                <label>
+                                    {!! Form::checkbox('apps','1',in_array($value['item_id'],$list) ? 'checked' : '',['class'=>'ace','disabled'=>true]) !!}                               
+                                    <span class="lbl">	{!! $value['item']->name !!}</span>
+                                </label>
+                                </div>
+                                @endforeach
+                            </div>											
+                        </div>                    
+                    </div>
+            	</div>
+            <!-- END HR Division -->
+            </div>
             <div class="space-24"></div>
+            <!-- END ONBOARD DETAIL -->
             <!-- END ONBOARD DETAIL -->
             <div class="form-group">
                 {!! Form::label('name', 'HR Comments', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
