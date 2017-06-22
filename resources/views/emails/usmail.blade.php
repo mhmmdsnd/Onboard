@@ -16,7 +16,7 @@ If you need any assistance in IT related matter, please contact:
                     <i class="ace-icon fa fa-caret-right blue"></i>Phone : <b class="red">+62811-9109-100</b>
                 </li>
                 <li>
-                    <i class="ace-icon fa fa-caret-right blue"></i>Ext : <b class="red">xxxx</b>
+                    <i class="ace-icon fa fa-caret-right blue"></i>Ext : <b class="red">1700</b>
                 </li>
                  <li>
                     <i class="ace-icon fa fa-caret-right blue"></i>Email : <b class="red">fathia.justine@sinarmasmining.com</b>
@@ -29,8 +29,8 @@ If you need any assistance in IT related matter, please contact:
     </div><!-- /.col -->
 </div><!-- /.row -->
 <div class="row">
-We�ve prepared few items for you, please refer to link below: <br />
-{!! $users['url'] !!}/Users/{!! $users['id'] !!}<br />
+We've prepared few items for you, please refer to link below: <br />
+{!! $users['url'] !!}/users/{!! $users['id'] !!}<br />
 </div>
 <div class="row">
 	<div class="col-sm-9">

@@ -16,7 +16,7 @@
 		<div class="widget-header widget-header-large">
 			<h3 class="widget-title grey lighter">
 				<i class="ace-icon fa fa-leaf green"></i>
-				Exit Employee Onboarding
+				@yield('title')
 			</h3>
             <div class="widget-toolbar no-border invoice-info">
                 <span class="invoice-info-label">Request By :</span>
@@ -136,39 +136,18 @@
             <!-- END ONBOARD DETAIL -->
             <!-- START ONBOARD DETAIL -->
             <div class="row">
-            	<!-- START GA Division -->
+            	<!-- START HR Division -->
                 <div class="col-xs-12 col-sm-4">
                     <div class="widget-box">
                         <div class="widget-header">
-                            <h4 class="widget-title">GA Division</h4>
+                            <h4 class="widget-title">HR Self-service</h4>
                         </div>
                         <div class="widget-body">
                             <div class="widget-main">  
-                                @foreach($suggested[3] as $key=>$value)
+                                @foreach($suggested[4] as $key=>$value)
                                 <div class="checkbox">
                                 <label>
-                                    {!! Form::checkbox('apps','1',in_array($value['item_id'],$list) ? 'checked' : '',['class'=>'ace','disabled'=>true]) !!}                               
-                                    <span class="lbl">	{!! $value['item']->name !!}</span>
-                                </label>
-                                </div>
-                                @endforeach
-                            </div>											
-                        </div>                    
-                    </div>
-            	</div>
-                <!-- END GA Division -->
-                <!-- START HR Division -->
-                <div class="col-xs-12 col-sm-4">
-                    <div class="widget-box">
-                        <div class="widget-header">
-                            <h4 class="widget-title">HR Division</h4>
-                        </div>
-                        <div class="widget-body">
-                            <div class="widget-main">  
-                                @foreach($suggested[3] as $key=>$value)
-                                <div class="checkbox">
-                                <label>
-                                    {!! Form::checkbox('apps','1',in_array($value['item_id'],$list) ? 'checked' : '',['class'=>'ace','disabled'=>true]) !!}                               
+                                    {!! Form::checkbox('hrss',$value['item_id'],'checked',['class'=>'ace','disabled'=>true]) !!}                               
                                     <span class="lbl">	{!! $value['item']->name !!}</span>
                                 </label>
                                 </div>
@@ -178,6 +157,27 @@
                     </div>
             	</div>
             <!-- END HR Division -->
+            	<!-- START GA Division -->
+                <div class="col-xs-12 col-sm-4">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title">GA Division</h4>
+                        </div>
+                        <div class="widget-body">
+                            <div class="widget-main">  
+                                @foreach($suggested[5] as $key=>$value)
+                                <div class="checkbox">
+                                <label>
+                                    {!! Form::checkbox('ga',$value['item_id'],'checked',['class'=>'ace','disabled'=>true]) !!}                               
+                                    <span class="lbl">	{!! $value['item']->name !!}</span>
+                                </label>
+                                </div>
+                                @endforeach
+                            </div>											
+                        </div>                    
+                    </div>
+            	</div>
+                <!-- END GA Division -->
             </div>
             <div class="space-24"></div>
             <!-- END ONBOARD DETAIL -->

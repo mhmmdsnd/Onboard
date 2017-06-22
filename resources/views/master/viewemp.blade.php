@@ -138,7 +138,7 @@
             <div class="hr hr-16 hr-dotted"></div>
               <div class="clearfix ">
                 <div class="col-md-offset-3 col-md-9">
-                <a class="btn btn-primary radius-4 " href="{{ url('/Employee') }}">Back</a>
+                <a class="btn btn-primary radius-4 " href="{{ url('/employee') }}">Back</a>
                 </div>
               </div>
         </div>

@@ -74,7 +74,7 @@
             try{ace.settings.loadState('sidebar')}catch(e){}
         </script>
 		<ul class="nav nav-list">
-		    @role('admin','hr')
+		    @role(['admin','hr'])
             <li class="">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-desktop"></i>
@@ -86,13 +86,13 @@
             	<b class="arrow"></b>
                 <ul class="submenu">
                     <li class="">
-                        <a href="{{ url('Employee') }}">
+                        <a href="{{ url('employee') }}">
                             <i class="menu-icon fa fa-caret-right"></i>List
                         </a>
                         <b class="arrow"></b>
                     </li>
                     <li class="">
-                        <a href="{{ url('Onboard') }}">
+                        <a href="{{ url('onboard') }}">
                             <i class="menu-icon fa fa-caret-right"></i>New
                         </a>
                         <b class="arrow"></b>
@@ -117,12 +117,29 @@
                     </li>
                     @role(['admin','hr','itadmin','itinfra','itapps'])
                     <li class="">
-                        <a href="{{ url('HRExit') }}">
+                        <a href="{{ url('hrexit') }}">
                             <i class="menu-icon fa fa-caret-right"></i>Exit</a>
                         <b class="arrow"></b>
                     </li>
                     @endrole
                 </ul>
+			</li>
+            <li class="">
+                <a href="#" class="dropdown-toggle">
+                    <i class="menu-icon fa fa-desktop"></i>
+                    <span class="menu-text">
+                       SLA Report
+                    </span>
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+            	<b class="arrow"></b>
+                <ul class="submenu">
+                    <li class="">
+                        <a href="{{ url('slareport') }}">
+                            <i class="menu-icon fa fa-caret-right"></i>Onboard</a>
+                        <b class="arrow"></b>
+                    </li>
+                   </ul>
 			</li>
         </ul>
         <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">

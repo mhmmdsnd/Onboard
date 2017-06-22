@@ -27,7 +27,7 @@ class HRExitController extends Controller
     public function index(){
 
         $hr_column = "Exit Date";
-        $exit_column = "Clearance Date";
+        $exit_column = "Clear. Date";
         $title = "exit";
         $now = Carbon::now();
         $role = RoleUser::where('user_id',Auth::user()->id)->pluck('role_id')->first();
@@ -35,8 +35,8 @@ class HRExitController extends Controller
         if($role == 2) $url = "ITAdm";
         elseif ($role == 3) $url = "ITInfra";
         elseif ($role == 4) $url = "ITApps";
-        elseif ($role == 5) $url = "Review";
-        else $url = "Users";
+        elseif ($role == 7) $url = "ga-detail";
+        else $url = "users";
 
         #CHECK LIST HR BERDASARKAN ROLE
         $list = OnRequest::with('onboard.company','onboard.division')->where('type_request','exit')->orderby('created_at','asc')->get();
@@ -46,8 +46,8 @@ class HRExitController extends Controller
 
         $detail = Onboard::with('company','division','workplace','position')->where('id',$onboard_id)->first();
         #MASTER ONBOARD
-        for($i=1;$i<=3;$i++)
-        {
+        $result = Subdivision::distinct()->whereHas('item.suggested_list',function ($q) use ($detail) {})->get()->pluck('id');
+        foreach ($result as $i) {
             $suggested[$i] = suggested_detail($onboard_id,'','',$i);
         }
 
@@ -66,9 +66,9 @@ class HRExitController extends Controller
         $req->save();
 
         #CREATE WORKFLOW FROM TEAM IT
-        $itcat_result = Subdivision::where('division_id',1)->get();
+        $itcat_result = Subdivision::distinct()->has('item.suggested_list')->get()->pluck('id');
         foreach($itcat_result as $it_cat){
-            $onboard->wfstore($req->id,$it_cat->id,'');
+            $onboard->wfstore($req->id,$it_cat,'');
         }
         #SENT EMAIL TO ALL TEAM IT
         sentemail(5,$req->id,'');
@@ -90,7 +90,7 @@ class HRExitController extends Controller
         $checker = Workflow::where('request_id',$request_id)->where('it_category',$it_category)->first();
 
         #LOOP PREPARED ITEM & WORKFLOW DETAIL
-       foreach ($is_checked as $isc )
+        foreach ($is_checked as $isc )
         {
             wfstore_email($request_id,$isc,'',$it_category,$type_request);
         }
@@ -102,6 +102,13 @@ class HRExitController extends Controller
         {
             Onboard::where('id',$onboard_id)->update(['exit_date'=>Carbon::now(),'updated_by'=>Auth::user()->id]); #UNTUK UPDATE SISTEM EXIT DATE
             sentemail(2,$request_id,''); #EMAIL TO REVIEWER
+            #REMOVE USERS
+            $result = Users::where('employee_id',$onboard_id)->first();
+            if($result) {
+                $user = User::find($result['id']);
+                $user->detachRole(6);
+                $user->delete();
+            }
         }
 
         Session::flash('flash_message', 'IT Area stage has been proceed!');

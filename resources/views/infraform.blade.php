@@ -20,7 +20,7 @@
 		<div class="widget-header widget-header-large">
 			<h3 class="widget-title grey lighter">
 				<i class="ace-icon fa fa-leaf green"></i>
-				IT Infrastructure - Suggested List
+				@yield('title')
 			</h3>
 			<div class="widget-toolbar no-border invoice-info">
                 <span class="invoice-info-label">Request By :</span>
@@ -47,10 +47,10 @@
                                 <i class="ace-icon fa fa-caret-right blue"></i>Company : <b class="red">{!! $detail['company']->name !!}</b>
                             </li>
                             <li>
-                                <i class="ace-icon fa fa-caret-right blue"></i>Division : <b class="red">{!! $detail['division']->name !!}</b>
+                                <i class="ace-icon fa fa-caret-right blue"></i>Division : <b class="red">@if($detail->division_id){!! $detail['division']->name !!}@endif</b>
                             </li>
                              <li>
-                                <i class="ace-icon fa fa-caret-right blue"></i>Department : <b class="red">{!! $detail['subdivision']->name !!}</b>
+                                <i class="ace-icon fa fa-caret-right blue"></i>Department : <b class="red">@if($detail->subdivision_id){!! $detail['subdivision']->name !!}@endif</b>
                             </li>
                             <li>
                                 <i class="ace-icon fa fa-caret-right blue"></i>Level : <b class="red">{!! $detail['position']->name !!}</b>
@@ -144,36 +144,15 @@
             <!-- END ONBOARD DETAIL -->
             <!-- START ONBOARD DETAIL -->
             <div class="row">
-            	<!-- START GA Division -->
+            	<!-- START HR Division -->
                 <div class="col-xs-12 col-sm-4">
                     <div class="widget-box">
                         <div class="widget-header">
-                            <h4 class="widget-title">GA Division</h4>
+                            <h4 class="widget-title">HR Self-service</h4>
                         </div>
                         <div class="widget-body">
                             <div class="widget-main">  
-                                @foreach($suggested[3] as $key=>$value)
-                                <div class="checkbox">
-                                <label>
-                                    {!! Form::checkbox('apps','1',in_array($value['item_id'],$list) ? 'checked' : '',['class'=>'ace','disabled'=>true]) !!}                               
-                                    <span class="lbl">	{!! $value['item']->name !!}</span>
-                                </label>
-                                </div>
-                                @endforeach
-                            </div>											
-                        </div>                    
-                    </div>
-            	</div>
-                <!-- END GA Division -->
-                <!-- START HR Division -->
-                <div class="col-xs-12 col-sm-4">
-                    <div class="widget-box">
-                        <div class="widget-header">
-                            <h4 class="widget-title">HR Division</h4>
-                        </div>
-                        <div class="widget-body">
-                            <div class="widget-main">  
-                                @foreach($suggested[3] as $key=>$value)
+                                @foreach($suggested[4] as $key=>$value)
                                 <div class="checkbox">
                                 <label>
                                     {!! Form::checkbox('apps','1',in_array($value['item_id'],$list) ? 'checked' : '',['class'=>'ace','disabled'=>true]) !!}                               
@@ -186,6 +165,27 @@
                     </div>
             	</div>
             <!-- END HR Division -->
+            	<!-- START GA Division -->
+                <div class="col-xs-12 col-sm-4">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title">GA Division</h4>
+                        </div>
+                        <div class="widget-body">
+                            <div class="widget-main">  
+                                @foreach($suggested[5] as $key=>$value)
+                                <div class="checkbox">
+                                <label>
+                                    {!! Form::checkbox('apps','1',in_array($value['item_id'],$list) ? 'checked' : '',['class'=>'ace','disabled'=>true]) !!}                               
+                                    <span class="lbl">	{!! $value['item']->name !!}</span>
+                                </label>
+                                </div>
+                                @endforeach
+                            </div>											
+                        </div>                    
+                    </div>
+            	</div>
+                <!-- END GA Division -->
             </div>
             <div class="space-24"></div>
             <!-- END ONBOARD DETAIL -->

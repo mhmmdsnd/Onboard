@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Master;
 
+use Adldap\Laravel\Facades\Adldap;
 use App\Item;
 use App\Subdivision;
 use App\SuggestedList;
@@ -49,12 +50,27 @@ class DivisionController extends Controller
         /*$user = User::find('10');
         $user->detachRole(5);*/
 
-        /*$user = User::find('10');
-        $user->attachRole(5);*/
+        /*$user = User::find('19');
+        $user->detachRole(5);*/
 
-        $division_id = 1;
+        /*$user = User::find('33');
+        $user->attachRole(3);
+
+        $user = User::find('7');
+        $user->attachRole(3);*/
+
+        /*$division_id = 1;
         $subdivision = Subdivision::distinct()->whereHas('item.suggested_list',function ($q) use ($division_id) {})->get()->pluck('id');
 
-        dd($subdivision);
+        dd($subdivision);*/
+        $username = "muhammad.sandy";
+        $password = "New2AD2";
+
+        if (Adldap::auth()->attempt($username, $password)) {
+            // Passed!
+            echo "Welcome";
+        }
+
+
     }
 }

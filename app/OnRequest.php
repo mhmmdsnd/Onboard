@@ -14,4 +14,7 @@ class OnRequest extends Model
     public function onboard(){
         return $this->hasOne(Onboard::class,'id','onboard_id');
     }
+    public function workflow(){
+        return $this->hasMany(Workflow::class,'request_id','id');
+    }
 }

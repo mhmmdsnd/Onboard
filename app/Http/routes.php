@@ -37,37 +37,48 @@ Route::group(['middleware' => ['role:itapps|admin']], function() {  #ITAPPS
 
 Route::group(['middleware' => ['role:hr|admin']], function() {
     #ONBOARD REQUEST
-    Route::get('/Onboard','OnboardController@create');
-    Route::post('/Onboard','OnboardController@store');
+    Route::get('/onboard','OnboardController@create');
+    Route::post('/onboard','OnboardController@store');
     #UNTUK HR CHECKLIST
-    Route::get('/Review/{onboardId}','OnboardController@reviewer');
-    Route::post('/Review','OnboardController@createstore');
+    Route::get('/review/{onboardId}','OnboardController@reviewer');
+    Route::post('/review','OnboardController@createstore');
     #LIST EMPLOYEE
-    Route::get('/Employee','Master\EmployeeController@index');
-    Route::get('/Employee/{employeeid}','Master\EmployeeController@show');
-    Route::post('/Employee','Master\EmployeeController@store');
+    Route::get('/employee','Master\EmployeeController@index');
+    Route::get('/employee/{employeeid}','Master\EmployeeController@show');
+    Route::post('/employee','Master\EmployeeController@store');
 
 });
 #ROUTE UNTUK EXIT REQUEST
 Route::group(['middleware' => ['role:itadmin|itinfra|itapps|hr|admin']], function() {
-    Route::get('/HRExit', 'HRExitController@index'); #INDEX EXIT
-    Route::get('/HRExit/{onboard_id}', 'HRExitController@hrexit'); #VIEW EXIT
-    Route::post('/HRExit', 'HRExitController@store'); #STORE FORM EXIT
-    Route::post('/ITAdm/Exit', ['as'=>'ITAdm/Exit','uses'=>'HRExitController@itstore']); #IT ADMIN FORM EXIT
-    Route::post('/ITInfra/Exit', ['as'=>'ITInfra/Exit','uses'=>'HRExitController@itstore']); #IT INFRA FORM EXIT
-    Route::post('/ITApps/Exit', ['as'=>'ITApps/Exit','uses'=>'HRExitController@itstore']); #IT APPS FORM EXIT
+    Route::get('/hrexit', 'HRExitController@index'); #INDEX EXIT
+    Route::get('/hrexit/{onboard_id}', 'HRExitController@hrexit'); #VIEW EXIT
+    Route::post('/hrexit', 'HRExitController@store'); #STORE FORM EXIT
+    Route::post('/ITAdm/Exit', ['as'=>'ITAdm/Exit','uses'=>'HRExitController@itstore']); #IT ADMIN EXIT
+    Route::post('/ITInfra/Exit', ['as'=>'ITInfra/Exit','uses'=>'HRExitController@itstore']); #IT INFRA EXIT
+    Route::post('/ITApps/Exit', ['as'=>'ITApps/Exit','uses'=>'HRExitController@itstore']); #IT APPS EXIT
+    Route::post('/hr-detail/exit', ['as'=>'hr-detail/exit','uses'=>'HRExitController@itstore']); #HR DETAIL EXIT
+    Route::post('/ga-detail/exit', ['as'=>'ga-detail/exit','uses'=>'HRExitController@itstore']); #GA DETAIL EXIT
 });
 
 
 Route::group(['middleware' => ['role:user|admin']], function() {
     #UNTUK USER MELAKUKAN CHECKLIST
-    Route::get('/Users/{onboardId}','OnboardController@userview');
-    Route::post('/Users','OnboardController@userstore');
+    Route::get('/users/{onboardId}','OnboardController@userview');
+    Route::post('/users','OnboardController@userstore');
 
 });
 
-Route::resource('ListOnBoard','ListboardController');
+#Route::resource('ListOnBoard','ListboardController');
 Route::get('/ListOnBoard','ListboardController@index');
+#GA DETAIL (ROLE : GA)
+Route::get('/ga-detail/{request_id}','Onboard\HRGAController@show');
+Route::post('/ga-detail/',['as'=>'ga-detail','uses'=>'OnboardController@itstore']);
+#HR DETAIL (ROLE : HR)
+Route::get('/hr-detail/{request_id}','Onboard\HRGAController@hrshow');
+Route::post('/hr-detail/',['as'=>'hr-detail','uses'=>'OnboardController@itstore']);
 
 Route::resource('Division','Master\DivisionController');
-Route::get('/ListOnBoard/divisions', ['as'=>'listonboard.divisions','uses'=>'ListboardController@show']);
+Route::get('/slareport/',['as'=>'slareport','uses'=>'ListboardController@slareport']);
+Route::post('/slareport/',['as'=>'slareport','uses'=>'ListboardController@generatesla']);
+Route::get('/ListOnBoard/divisions', ['as'=>'listonboard/divisions','uses'=>'ListboardController@show']);
+Route::get('/ListOnBoard/company', ['as'=>'listonboard/company','uses'=>'ListboardController@showcompany']);

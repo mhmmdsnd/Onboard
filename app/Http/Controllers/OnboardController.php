@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\CheckedItem;
 use App\ClearedItem;
-use App\Company;
 use App\Division;
+use App\Holding;
 use App\Position;
 use App\Subdivision;
 use App\OnboardItem;
@@ -51,24 +51,23 @@ class OnboardController extends Controller
     #END WORKFLOW
     public function create(){
 
-        $company = Company::pluck('name','id');
+        $holding = Holding::pluck('name','id');
         $divisi = Division::pluck('name','id');
         $position = Position::pluck('name','id');
         $workplace = Workplace::pluck('name','id');
 
-        return view('hrform',compact('company','divisi','position','workplace')); #'subdivision',
+        return view('hrform',compact('holding','divisi','position','workplace')); #'subdivision',
     }
     public function store(Request $request){
         $this->validate($request, [
             'onboardName' => 'required','onboardCompany' => 'required',
-            'onboardDivision' => 'required','onboardJoindate' => 'required',
-            'position_id' => 'required'
+            'onboardJoindate' => 'required','position_id' => 'required'
         ]);
 
         //INPUT TO REGISTER (ONBOARD)
         $input = array('name'=>$request->request->get('onboardName'),
-            'division_id'=>$request->request->get('onboardDivision'),
-            'position_id'=>$request->request->get('position_id'),'subdivision_id'=>$request->request->get('subdivision_id'),
+            'division_id'=>'0',
+            'position_id'=>$request->request->get('position_id'),'subdivision_id'=>'0',
             'company_id'=>$request->request->get('onboardCompany'),'joindate'=>$request->request->get('onboardJoindate'),
             'workplace_id'=>$request->request->get('onboardWP'),'created_by'=>Auth::user()->name);
         $result = Onboard::create($input);
@@ -82,9 +81,9 @@ class OnboardController extends Controller
         $req->save();
 
         #CREATE WORKFLOW AS PER REQUEST (DIVISION IT=1)
-        $itcat_result = Subdivision::where('division_id',1)->get();
-        foreach($itcat_result as $it_cat){
-            $this->wfstore($result['id'],$it_cat->id,'');
+        $hasil = Subdivision::distinct()->has('item.suggested_list')->get()->pluck('id');
+        foreach ($hasil as $it_cat) {
+            $this->wfstore($result['id'],$it_cat,' ');
         }
         //SEND EMAIL
         sentemail(1,$result['id'],$result['name']);
@@ -124,9 +123,7 @@ class OnboardController extends Controller
                 }
                 sentemail(2,$request_id,'');
             }
-            #INPUT TO SYSWF
-            $this->wfstore($request_id,$it_category,$comment);
-
+            $this->wfstore($request_id,$it_category,$comment);#INPUT TO SYSWF
         }
         if($request->input('completed'))
         {
@@ -137,10 +134,8 @@ class OnboardController extends Controller
             }
             #UPDATE DATE COMPLETED
             Workflow::where('id',$checker->id)->update(['completed_by'=>Auth::user()->id,'completed_at'=>Carbon::now()]);
-            #INPUT TO SYSWF
-            $this->wfstore($request_id,$it_category,$comment);
-            #EMAIL TO REVIEWER
-            sentemail(2,$request_id,'');
+            $this->wfstore($request_id,$it_category,$comment);#INPUT TO SYSWF
+            sentemail(2,$request_id,'');#EMAIL TO REVIEWER
         }
         #END CHECK WORKFLOW
 
@@ -194,8 +189,9 @@ class OnboardController extends Controller
         {
             #DATA CHECKED ITEM
             $list = ClearedItem::where('onboard_id',$req['onboard_id'])->get()->pluck('item_id')->toArray();
-            for($i=1;$i<=3;$i++) {
-                $suggested[$i] = suggested_detail($req['onboard_id'],'','',$i);
+            $result = Subdivision::distinct()->whereHas('item.suggested_list',function ($q) use ($division_id) {})->get()->pluck('id');
+            foreach ($result as $subdivision){
+                $suggested[$subdivision] = suggested_detail($req['onboard_id'],'','',$subdivision);
             }
         }
 
@@ -219,7 +215,7 @@ class OnboardController extends Controller
             $list = PreparedItem::where('request_id',$onboardId)->get()->pluck('item_id')->toArray();
 
             #TRIAL LOOP SUGGESTED LIST BERDASARKAN SUBDIVISION
-            $result = Subdivision::distinct()->whereHas('item.suggested_list',function ($q) use ($division_id) {})->get()->pluck('id');
+            $result = Subdivision::distinct()->has('item.suggested_list')->get()->pluck('id');
             foreach ($result as $subdivision){
                 $suggested[$subdivision] = suggested_list($subdivision,$holding_id,$company_id,$division_id,$position_id);
             }
@@ -228,9 +224,8 @@ class OnboardController extends Controller
         {
             #DATA CHECKED ITEM
             $list = ClearedItem::where('onboard_id',$req['onboard_id'])->get()->pluck('item_id')->toArray();
-
-            for($i=1;$i<=3;$i++)
-            {
+            $result = Subdivision::distinct()->has('item.suggested_list')->get()->pluck('id');
+            foreach ($result as $i) {
                 $suggested[$i] = suggested_detail($req['onboard_id'],'','',$i);
             }
         }
@@ -255,7 +250,7 @@ class OnboardController extends Controller
             $list = PreparedItem::where('request_id',$onboardId)->get()->pluck('item_id')->toArray();
 
             #TRIAL LOOP SUGGESTED LIST BERDASARKAN SUBDIVISION
-            $result = Subdivision::distinct()->whereHas('item.suggested_list',function ($q) use ($division_id) {})->get()->pluck('id');
+            $result = Subdivision::distinct()->has('item.suggested_list')->get()->pluck('id');
             foreach ($result as $subdivision){
                 $suggested[$subdivision] = suggested_list($subdivision,$holding_id,$company_id,$division_id,$position_id);
             }
@@ -264,8 +259,8 @@ class OnboardController extends Controller
         {
             #DATA CHECKED ITEM
             $list = ClearedItem::where('onboard_id',$req['onboard_id'])->get()->pluck('item_id')->toArray();
-            for($i=1;$i<=3;$i++)
-            {
+            $result = Subdivision::distinct()->has('item.suggested_list')->get()->pluck('id');
+            foreach ($result as $i) {
                 $suggested[$i] = suggested_detail($req['onboard_id'],'','',$i);
             }
         }
@@ -280,28 +275,30 @@ class OnboardController extends Controller
             $detail = Onboard::with('company','division','workplace','position')->where('id',$req['onboard_id'])->first(); }
 
         #DATA ITEM WITH REQUEST TYPE (JOIN, EXIT)
+        $result = Subdivision::distinct()->whereHas('item.suggested_list',function ($q) use ($detail) {
+            $q->where('subdivision_id','!=',12);
+        })->get()->pluck('id');
+        $request = Workflow::where('request_id',$request_id)->where('completed_by','!=','')->count();
+        (count($result) == $request) ? $completed = "Done" : $completed = "";
         if($req->type_request == 'join'){
             #DATA CHECKED ITEM
             $checker = CheckedItem::where('request_id',$request_id)->get()->pluck('item_id')->toArray();
 
-            for($i=1;$i<=3;$i++)
-            {
+            foreach ($result as $i) {
                 $suggested[$i] = suggested_detail('',$request_id,'review',$i);
+                $wf_comment[$i] = Workflow::where('request_id',$request_id)->where('it_category',$i)->first();
             }
         } else {
             #DATA CHECKED ITEM
             $checker = ClearedItem::where('onboard_id',$req['onboard_id'])->get()->pluck('item_id')->toArray();
 
-            for($i=1;$i<=3;$i++)
-            {
+            foreach ($result as $i) {
                 $suggested[$i] = suggested_detail($req['onboard_id'],'','',$i);
+                $wf_comment[$i] = Workflow::where('request_id',$request_id)->where('it_category',$i)->first();
             }
         }
 
-        for($i=1;$i<=3;$i++){
-            $wf_comment[$i] = Workflow::where('request_id',$request_id)->where('it_category',$i)->first();
-        }
-        return view('reviewer',compact('req','detail','suggested','checker','wf_comment'));
+        return view('reviewer',compact('req','detail','suggested','checker','wf_comment','completed'));
     }
     public function createstore(Request $request)
     {
@@ -315,13 +312,15 @@ class OnboardController extends Controller
         $admin = $request->input('admin');
         $infra = $request->input('infra');
         $apps = $request->input('apps');
+        $hr = $request->input('hr');
+        $ga = $request->input('ga');
 
         #START CHECK WORKFLOW
         $checker = Workflow::where('request_id',$request_id)->where('it_category',$it_category)->first();
         if($request->input('submit'))
         {
             #EMAIL TO REVIEWER
-            $wf_check = count($admin)+count($infra)+count($apps); #HITUNG JUMLAH ITEM YANG DICHECKLIST
+            $wf_check = count($admin)+count($infra)+count($apps)+count($hr)+count($ga); #HITUNG JUMLAH ITEM YANG DICHECKLIST
             $wf_detail = CheckedItem::where('request_id',$request_id)->count(); #HITUNG JUMLAH ITEM YANG SUDAH DI CHECKLIST
             #LOOP PREPARED ITEM & WORKFLOW DETAIL
             if($wf_check > $wf_detail) {
@@ -338,6 +337,16 @@ class OnboardController extends Controller
                 if($apps){
                     foreach ($apps as $app){
                         wfstore_email($request_id,$app,$comment,$it_category,$type_request);
+                    }
+                }
+                if($hr) {
+                    foreach ($hr as $h){
+                        wfstore_email($request_id,$h,$comment,$it_category,$type_request);
+                    }
+                }
+                if($ga){
+                    foreach ($ga as $g){
+                        wfstore_email($request_id,$g,$comment,$it_category,$type_request);
                     }
                 }
                 sentemail(3,$request_id,'');
@@ -361,6 +370,16 @@ class OnboardController extends Controller
                     wfstore_email($request_id,$app,$comment,$it_category,$type_request);
                 }
             }
+            if($hr) {
+                foreach ($hr as $h){
+                    wfstore_email($request_id,$h,$comment,$it_category,$type_request);
+                }
+            }
+            if($ga){
+                foreach ($ga as $g){
+                    wfstore_email($request_id,$g,$comment,$it_category,$type_request);
+                }
+            }
             #UPDATE DATE COMPLETED
             Workflow::where('id',$checker['id'])->update(['completed_by'=>Auth::user()->id,'completed_at'=>Carbon::now()]);
             #INPUT TO SYSWF
@@ -369,7 +388,6 @@ class OnboardController extends Controller
             sentemail(3,$request_id,'');
         }
         #END CHECK WORKFLOW
-
         Session::flash('flash_message', 'Reviewer proceed has been done!');
         return redirect()->action('ListboardController@index');
     }
@@ -385,15 +403,15 @@ class OnboardController extends Controller
         $employee = OnboardItem::where('onboard_id',$req['onboard_id'])->get()->pluck('item_id')->toArray();
         #MASTER ONBOARD
         if($type_request == 'join'){
-            for($i=1;$i<=3;$i++)
-            {
+            $result = Subdivision::distinct()->whereHas('item.suggested_list',function ($q) use ($detail) {})->get()->pluck('id');
+            foreach ($result as $i) {
                 $suggested[$i] = suggested_detail('',$request_id,'',$i);
             }
 
         } else
         {
-            for($i=1;$i<=3;$i++)
-            {
+            $result = Subdivision::distinct()->whereHas('item.suggested_list',function ($q) use ($detail) {})->get()->pluck('id');
+            foreach ($result as $i) {
                 $suggested[$i] = suggested_detail($req['onboard_id'],'','',$i);
             }
         }
@@ -438,8 +456,20 @@ class OnboardController extends Controller
                 wfstore_email($request_id,$app,$comment,$it_category,$type_request);
             }
         }
+        $hr = $request->input('hr');
+        if($hr) {
+            foreach ($hr as $hrself){
+                wfstore_email($request_id,$hrself,$comment,$it_category,$type_request);
+            }
+        }
+        $ga = $request->input('ga');
+        if($ga){
+            foreach ($ga as $gdept){
+                wfstore_email($request_id,$gdept,$comment,$it_category,$type_request);
+            }
+        }
 
-        $wf_check = count($admin)+count($infra)+count($apps); #HITUNG JUMLAH ITEM YANG DICHECKLIST
+        $wf_check = count($admin)+count($infra)+count($apps)+count($hr)+count($ga); #HITUNG JUMLAH ITEM YANG DICHECKLIST
         $wf_detail = CheckedItem::where('request_id',$request_id)->count(); #HITUNG JUMLAH ITEM YANG SUDAH DI CHECKLIST
         if($wf_check == $wf_detail){
             $onrequest = OnRequest::find($request_id);

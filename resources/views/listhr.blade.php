@@ -15,7 +15,10 @@
         <th class="detail-col">IT Adm</th>
         <th class="detail-col">IT Infra</th>
         <th class="detail-col">IT Apps</th>
+        <th class="detail-col">HR Self</th>
+        <th class="detail-col">GA Dept</th>
         <th class="detail-col">{!! $hr_column !!}</th>
+        @role('hr')<th class="detail-col">Action</th>@endrole
     </thead>
     <tbody>
     	@foreach($list as $value)
@@ -23,16 +26,34 @@
           <td width="100"><a href="{{ url($url.'/'.$value->id) }}">{!! $value->ticket !!}</a></td>
           <td width="100">{!! $value['onboard']['company']->name !!}</td>
           <td width="100">{!! $value['onboard']->name !!}</td>
-          <td width="100">{!! $value['onboard']['division']->name !!}</td>
+          <td width="100">@if ($value['onboard']->division_id) {!! $value['onboard']['division']->name !!} @endif</td>
           <td width="100">{!! $value['onboard']->joindate !!}</td>
           <td width="20">{!! Carbon\Carbon::parse($value['onboard']->created_at)->format('Y-m-d') !!}</td>
           @if ($value->delivery_date || $value['onboard']->exit_date)<td width="20" class="btn-success" align="right">@else <td width="20" class="btn-warning" align="right"> @endif{!! dateWorkflow($value->id,1,$value['onboard']['company']->holdingId,$value['onboard']->company_id,$value['onboard']->division_id,$value['onboard']->position_id) !!} </td>
           @if ($value->delivery_date || $value['onboard']->exit_date)<td width="20" class="btn-success" align="right">@else <td width="20" class="btn-warning" align="right"> @endif{!! dateWorkflow($value->id,2,$value['onboard']['company']->holdingId,$value['onboard']->company_id,$value['onboard']->division_id,$value['onboard']->position_id) !!} </td>
           @if ($value->delivery_date || $value['onboard']->exit_date)<td width="20" class="btn-success" align="right">@else <td width="20" class="btn-warning" align="right"> @endif{!! dateWorkflow($value->id,3,$value['onboard']['company']->holdingId,$value['onboard']->company_id,$value['onboard']->division_id,$value['onboard']->position_id) !!} </td>
+          @if ($value->delivery_date || $value['onboard']->exit_date)<td width="20" class="btn-success" align="right">@else <td width="20" class="btn-warning" align="right"> @endif{!! dateWorkflow($value->id,4,$value['onboard']['company']->holdingId,$value['onboard']->company_id,$value['onboard']->division_id,$value['onboard']->position_id) !!} </td>
+          @if ($value->delivery_date || $value['onboard']->exit_date)<td width="20" class="btn-success" align="right">@else <td width="20" class="btn-warning" align="right"> @endif{!! dateWorkflow($value->id,5,$value['onboard']['company']->holdingId,$value['onboard']->company_id,$value['onboard']->division_id,$value['onboard']->position_id) !!} </td>
            @if ($value->delivery_date)
-           <td width="20" class="btn-success" align="right"> Completed @elseif ($value['onboard']->exit_date) 
+           <td width="20" class="btn-success" align="right"> {!! Carbon\Carbon::parse($value->delivery_datet)->format('Y-m-d') !!} @elseif ($value['onboard']->exit_date) 
            <td width="20" class="btn-success" align="right"> Exit @else
            <td width="20" class="btn-warning" align="right">@if ($value->type_request=='join'){!! Carbon\Carbon::parse($value['onboard']->joindate)->diffInDays($now) !!} Days @endif @endif </td>
+           @role('hr')<td width="20">
+           	<div class="btn-group">
+                <button data-toggle="dropdown" class="btn btn-sm btn-white dropdown-toggle">
+                    Action
+                    <i class="ace-icon fa fa-angle-down icon-on-right"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="{{ url('hr-detail/'.$value->id) }}">Prepared Item</a>
+                    </li>
+                    <li>
+                        <a href="{{ url('review/'.$value->id) }}">Review</a>
+                    </li>
+                </ul>
+            </div><!-- /.btn-group -->
+           </td>@endrole
       </tr>
         @endforeach
       </tbody>
@@ -47,7 +68,7 @@
     jQuery(function($) {
         var myTable = $('#dt-listhr').DataTable({
 		bAutoWidth: false,
-		"order":[[9,"asc"]]
+		"order":[[11,"desc"]]
 		});
     });
 </script>

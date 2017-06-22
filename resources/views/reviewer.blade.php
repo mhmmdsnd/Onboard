@@ -5,13 +5,13 @@
 <div class="container">
     @if ($req->type_request == 'join') {!! Form::open(['class'=>'form-horizontal','action' => 'OnboardController@createstore']) !!}
 	@else {!! Form::open(['class'=>'form-horizontal','action' => 'HRExitController@hrstore']) !!} @endif
-    {!! Form::hidden('type_request',$req->type_request,['id'=>'type_request']) !!}{!! Form::hidden('it_category',4) !!}
+    {!! Form::hidden('type_request',$req->type_request,['id'=>'type_request']) !!}{!! Form::hidden('it_category',6) !!}
     <div class="col-sm-10 col-sm-offset-1">
 	<div class="widget-box transparent">
 		<div class="widget-header widget-header-large">
 			<h3 class="widget-title grey lighter">
 				<i class="ace-icon fa fa-leaf green"></i>
-				Reviewer
+				@yield('title')
 			</h3>
             <div class="widget-toolbar no-border invoice-info">
                 <span class="invoice-info-label">Request By :</span>
@@ -82,7 +82,7 @@
                             @endforeach
                             <div class="space space-8"></div>
                             <hr />
-                            <span class="lbl">{!! $wf_comment[1]->comment !!}</span> 
+                            <span class="lbl">@if ($wf_comment[1]) {!! $wf_comment[1]->comment !!} @endif</span> 
                         </div>											
 					</div>                    
                 </div>
@@ -106,7 +106,7 @@
                             @endforeach
                             <div class="space space-8"></div>
                             <hr />
-                            <span class="lbl">{!! $wf_comment[2]->comment !!}</span>
+                            <span class="lbl">@if ($wf_comment[2]) {!! $wf_comment[2]->comment !!} @endif</span>
                         </div>											
 					</div>                    
                 </div>
@@ -130,30 +130,83 @@
                             @endforeach
                             <div class="space space-8"></div>
                             <hr />
-                            <span class="lbl">{!! $wf_comment[3]->comment !!}</span>
+                            <span class="lbl">@if ($wf_comment[3]) {!! $wf_comment[3]->comment !!} @endif</span>
                         </div>											
 					</div>                    
                 </div>
             </div>
             <!-- END IT APPLICATION -->
             </div>
+            <div class="space-10"></div>
+            <!-- END ONBOARD DETAIL -->
+            <!-- START ONBOARD DETAIL -->
+            <div class="row">
+            	<!-- START HR Division -->
+                <div class="col-xs-12 col-sm-4">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title">HR Self-service</h4>
+                        </div>
+                        <div class="widget-body">
+                            <div class="widget-main">  
+                                @foreach($suggested[4] as $key=>$value)
+                                <div class="checkbox">
+                                <label>
+                                	{!! Form::checkbox('hr['.$key.']',$value['item_id'],in_array($value['item_id'],$checker) ? 'checked' : '',['class'=>'ace']) !!}                               
+                                    <span class="lbl">	{!! $value['item']->name !!}</span>
+                                </label>
+                                </div>
+                                @endforeach
+                                <div class="space space-8"></div>
+                                <hr />
+                                <span class="lbl">@if ($wf_comment[4]) {!! $wf_comment[4]->comment !!} @endif</span>
+                            </div>											
+                        </div>                    
+                    </div>
+            	</div>
+            <!-- END HR Division -->
+            	<!-- START GA Division -->
+                <div class="col-xs-12 col-sm-4">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title">GA Division</h4>
+                        </div>
+                        <div class="widget-body">
+                            <div class="widget-main">  
+                                @foreach($suggested[5] as $key=>$value)
+                                <div class="checkbox">
+                                <label>
+                                    {!! Form::checkbox('ga['.$key.']',$value['item_id'],in_array($value['item_id'],$checker) ? 'checked' : '',['class'=>'ace']) !!}                               
+                                    <span class="lbl">	{!! $value['item']->name !!}</span>
+                                </label>
+                                </div>
+                                @endforeach
+                                <div class="space space-8"></div>
+                                <hr />
+                                <span class="lbl">@if ($wf_comment[5]) {!! $wf_comment[5]->comment !!} @endif</span>
+                            </div>											
+                        </div>                    
+                    </div>
+            	</div>
+                <!-- END GA Division -->
+            </div>
             <div class="space-24"></div>
             <!-- END ONBOARD DETAIL -->
              <div class="form-group">
-     	{!! Form::label('name', 'Comments', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
-        <div class="col-sm-9">
-		{!! Form::textarea('comment', null, ['class' => 'form-control']) !!}
-        </div>
-    </div>    
+                {!! Form::label('name', 'Comments', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+                <div class="col-sm-9">
+                {!! Form::textarea('comment', null, ['class' => 'form-control']) !!}
+                </div>
+            </div>    
             </div>
             </div>
             <div class="hr hr-16 hr-dotted"></div>
               <div class="clearfix ">
                 <div class="col-md-offset-3 col-md-9">
                 <a class="btn btn-primary radius-4 " href="{{ url()->previous() }}">Back</a>
-                @if (!$detail->exit_date)
+                @if (!$detail->exit_date && !$req->delivery_date )
                 {!! Form::submit('Submit', ['name'=>'submit','class' => 'btn btn-primary radius-4']) !!}
-            	@if ($req->type_request == 'join') {!! Form::submit('Completed', ['name'=>'completed','class' => 'btn btn-primary radius-4']) !!} @endif
+            	@if ($req->type_request == 'join'&& $completed == 'Done') {!! Form::submit('Completed', ['name'=>'completed','class' => 'btn btn-primary radius-4']) !!} @endif
                 @endif
                 </div>
               </div>

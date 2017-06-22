@@ -6,6 +6,8 @@ use App\SysUsers;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
@@ -69,5 +71,16 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function login(Request $request)
+    {
+        if (Auth::attempt($request->only(['email', 'password']))) {
+            // Returns \App\User model configured in `config/auth.php`.
+            $user = Auth::user();
+            return redirect()->to('ListOnBoard')->withMessage('Logged in!');
+        }
+        return redirect()->to('login')
+            ->withMessage('Hmm... Your username or password is incorrect');
     }
 }

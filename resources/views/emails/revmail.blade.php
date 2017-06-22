@@ -13,7 +13,7 @@ Please review items below:<br />
             <div class="widget-main">  
                 <table id="dt-listhr" class="table table-striped table-bordered table-hover first-table">
                 <tbody>
-                @foreach($suggested as $key=>$value)
+                @foreach($admin as $key=>$value)
                     <tr>
                         <td>{!! $value['item']->name !!}</td>
                         <td>OK</td>
@@ -73,10 +73,61 @@ Please review items below:<br />
 </div>
 <!-- END IT ADMININSTRATOR -->
 </div>
+<div class="space-10"></div>
+<!-- END ONBOARD DETAIL -->
+<!-- START ONBOARD DETAIL -->
+<div class="row">
+<!-- START IT ADMINISTRATOR -->
+<div class="col-xs-12 col-sm-4">
+    <div class="widget-box">
+        <div class="widget-header">
+            <h4 class="widget-title">HR Self-service</h4>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">  
+                <table id="dt-listhr" class="table table-striped table-bordered table-hover first-table">
+                <tbody>
+                @foreach($hrself as $key=>$value)
+                    <tr>
+                        <td>{!! $value['item']->name !!}</td>
+                        <td>OK</td>
+                    </tr>
+                @endforeach
+                </tbody>
+                </table>
+            </div>											
+        </div>                    
+    </div>
+</div>
+<!-- END IT ADMININSTRATOR -->
+<!-- START IT ADMINISTRATOR -->
+<div class="col-xs-12 col-sm-4">
+    <div class="widget-box">
+        <div class="widget-header">
+            <h4 class="widget-title">GA Department</h4>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">  
+                <table id="dt-listhr" class="table table-striped table-bordered table-hover first-table">
+                <tbody>
+                @foreach($gadept as $key=>$value)
+                    <tr>
+                        <td>{!! $value['item']->name !!}</td>
+                        <td>OK</td>
+                    </tr>
+                @endforeach
+                </tbody>
+                </table>
+            </div>											
+        </div>                    
+    </div>
+</div>
+<!-- END IT ADMININSTRATOR -->
+</div>
 <div class="space-24"></div>
 <!-- END ONBOARD DETAIL -->
 <br />
-{!! $sent['url'] !!}/Review/{!! $sent['request_id'] !!}<br />
+{!! $sent['url'] !!}/review/{!! $sent['request_id'] !!}<br />
 <br />
 <br />
 Thank you for your cooperation.

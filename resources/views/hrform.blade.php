@@ -3,7 +3,7 @@
 @section('title', 'New Employee')
 @section('content')
 <div class="page-header">
-  <h1>Employee OnBoarding</h1>
+  <h1>@yield('title')</h1>
 </div>
 <div class="container">
     @if($errors->any())
@@ -21,24 +21,18 @@
         </div>
     </div>
     <div class="form-group">
-     	{!! Form::label('name', 'Company *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+     	{!! Form::label('name', 'Group *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
         <div class="col-sm-9">
-		{!! Form::select('onboardCompany', $company, null, ['placeholder' => 'Please Select...']) !!}
+		{!! Form::select('holding_id', $holding, null, ['id'=>'holding_id', 'placeholder' => 'Please Select...']) !!}
     	</div>
     </div>
     <div class="form-group">
-        {!! Form::label('name', 'Division *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+     	{!! Form::label('name', 'Company *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
         <div class="col-sm-9">
-		{!! Form::select('onboardDivision',$divisi, null, ['id'=>'onboardDivision','placeholder' => 'Please Select...']) !!}
-        </div>
-    </div>
-    <div class="form-group">
-        {!! Form::label('name', 'Department *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
-        <div class="col-sm-9">
-        <select id='subdivision_id' name="subdivision_id">
+        <select id='onboardCompany' name="onboardCompany">
         	<option>Please Select...</option>
         </select>
-        </div>
+    	</div>
     </div>
     <div class="form-group">
      	{!! Form::label('name', 'Level *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
@@ -81,11 +75,11 @@
 		$("form").on("submit", function () {
     		$(this).find(":submit").prop("disabled", true);
 		});
-        $('#onboardDivision').change(function(){
-			$.get("{{ url('/ListOnBoard/divisions')}}", 
-			{ option: $(this).val() }, 
+		$('#holding_id').change(function(){
+			$.get("{{ url('/ListOnBoard/company')}}", 
+			{ group: $('#holding_id').val() }, 
 			function(data) {
-					var model = $('#subdivision_id');
+					var model = $('#onboardCompany');
 					model.empty();
  					$.each(data, function(key, value) {
 			            model.append("<option value='"+ key +"'>" + value + "</option>");
@@ -93,7 +87,7 @@
 			});
 		});
 		
-		$('.date-picker').datepicker({
+        $('.date-picker').datepicker({
 			autoclose: true,
 			todayHighlight: true
 		})
