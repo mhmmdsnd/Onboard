@@ -16,7 +16,7 @@
         <tr>
           <td width="100"><a href="{{ url('employee/'.$value->id) }}">{!! $value->name !!}</a></td>
           <td width="100">{!! $value['company']->name !!}</td>
-          <td width="100">{!! $value['division']->name !!}</td>
+          <td width="100">@if($value->division_id){!! $value['division']->name !!}@endif</td>
           <td width="100">{!! $value->joindate !!}</td>
           @if ($value->exit_date)<td width="20" class="btn-success" align="right"> Already Resign
           @elseif(statusWorkflow($value->id)) <td width="20" class="btn-warning" align="right"> {!! statusWorkflow($value->id) !!}

@@ -37,7 +37,7 @@
            @if ($value->delivery_date)
            <td width="20" class="btn-success" align="right"> {!! Carbon\Carbon::parse($value->delivery_datet)->format('Y-m-d') !!} @elseif ($value['onboard']->exit_date) 
            <td width="20" class="btn-success" align="right"> Exit @else
-           <td width="20" class="btn-warning" align="right">@if ($value->type_request=='join'){!! Carbon\Carbon::parse($value['onboard']->joindate)->diffInDays($now) !!} Days @endif @endif </td>
+           <td width="20" class="btn-warning" align="right">@if ($value->type_request=='join'){!! $now->diffInDays(Carbon\Carbon::parse($value['onboard']->joindate),false) !!} Days @endif @endif </td>
            @role('hr')<td width="20">
            	<div class="btn-group">
                 <button data-toggle="dropdown" class="btn btn-sm btn-white dropdown-toggle">

@@ -73,7 +73,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function login(Request $request)
+    public function authenticate(Request $request)
     {
         if (Auth::attempt($request->only(['email', 'password']))) {
             // Returns \App\User model configured in `config/auth.php`.
