@@ -49,6 +49,8 @@ function sentemail($stage,$id,$name)
             if($input->role_id == 2) $url_role = "ITAdm";
             elseif ($input->role_id == 3) $url_role = "ITInfra";
             elseif ($input->role_id == 4) $url_role = "ITApps";
+            elseif ($input->role_id == 5) $url_role = "hr-detail";
+            elseif ($input->role_id == 7) $url_role = "ga-detail";
             else $input->role_id = "Users";
             $input = array_add($input,'name',$name);
             $data_mail = array(

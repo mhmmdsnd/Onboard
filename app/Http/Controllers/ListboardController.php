@@ -82,7 +82,7 @@ class ListboardController extends Controller
         $startdate = date('Y-m-d',strtotime($request->input('start_date')));
         $enddate = date('Y-m-d',strtotime($request->input('end_date')));
 
-        $result = Subdivision::distinct()->has('item.suggested_list')->get()->pluck('name','id');
+        $result = Subdivision::distinct()->has('item.suggested_list')->where('id','!=','12')->get()->pluck('name','id');
         foreach ($result as $key=>$value){
 
             $average[$key] = DB::table('request')->join("workflow",'workflow.request_id','=','request.id')

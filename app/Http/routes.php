@@ -21,7 +21,7 @@ Route::get('/', function () {
 Route::get('/ListOnBoard/usermail', 'ListboardController@usermail');
 
 Route::group(['middleware' => ['role:itadmin|admin']], function() {    #ITADMIN
-    Route::get('/ITAdm/{onboardId}','OnboardController@itadm');
+    Route::get('/ITAdm/{onboardId}',['as'=>'ITAdm','uses'=>'OnboardController@itadm']);
     Route::post('/ITAdm', ['as'=>'ITAdm','uses'=>'OnboardController@itstore']);
 });
 
@@ -35,7 +35,7 @@ Route::group(['middleware' => ['role:itapps|admin']], function() {  #ITAPPS
     Route::post('/ITApps', ['as'=>'ITApps','uses'=>'OnboardController@itstore']);
 });
 
-Route::group(['middleware' => ['role:hr|admin']], function() {
+Route::group(['middleware' => ['role:hr|admin|hr-rct']], function() {
     #ONBOARD REQUEST
     Route::get('/onboard','OnboardController@create');
     Route::post('/onboard','OnboardController@store');

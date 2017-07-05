@@ -8,11 +8,11 @@
         {!! Form::label('name', 'Request Date ', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
 		<div class="col-sm-5">
             <div class="input-daterange input-group">
-                {!! Form::date('start_date', null, ['id'=>'start_date','class' => 'input-sm form-control', 'readonly'=>'']) !!}
+                {!! Form::text('start_date', null, ['id'=>'start_date','class' => 'input-sm form-control', 'readonly'=>'']) !!}
                 <span class="input-group-addon">
                    <i class="fa fa-exchange"></i>
                 </span>
-                {!! Form::date('end_date', null, ['id'=>'end_date','class' => 'input-sm form-control', 'readonly'=>'']) !!}
+                {!! Form::text('end_date', null, ['id'=>'end_date','class' => 'input-sm form-control', 'readonly'=>'']) !!}
             </div>
     	</div>
     </div>

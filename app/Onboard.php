@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Onboard extends Model
 {
     protected $table = "onboard";
-    protected $fillable = ['name','division_id','company_id','joindate','workplace_id', 'email','subdivision_id','position_id',
-        'created_at','created_by','updated_by','updated_at'];
+    protected $fillable = ['name','division_id','company_id','joindate','workplace_id', 'email','subdivision_id','position_id','title',
+        'grade_id','other_site','created_at','created_by','updated_by','updated_at'];
 
     protected $hidden = ['id'];
     protected $default = [];
@@ -27,6 +27,9 @@ class Onboard extends Model
     }
     public function position(){
         return $this->hasOne(Position::class,'id','position_id');
+    }
+    public function grade(){
+        return $this->hasOne(Grade::class,'id','grade_id');
     }
     public function onboard_detail()
     {

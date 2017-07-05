@@ -7,7 +7,7 @@
     <thead>
         <th class="detail-col">Name</th>
         <th class="detail-col">Company</th>
-        <th class="detail-col">Division</th>
+        <th class="detail-col">Title</th>
         <th class="detail-col">Join date</th>
         <th class="detail-col">Exit Proceed</th>
     </thead>
@@ -15,8 +15,8 @@
     	@foreach($list as $value)
         <tr>
           <td width="100"><a href="{{ url('employee/'.$value->id) }}">{!! $value->name !!}</a></td>
-          <td width="100">{!! $value['company']->name !!}</td>
-          <td width="100">@if($value->division_id){!! $value['division']->name !!}@endif</td>
+          <td width="100">@if($value->company_id){!! $value['company']->name !!}@endif</td>
+          <td width="100">{!! $value->title !!}</td>
           <td width="100">{!! $value->joindate !!}</td>
           @if ($value->exit_date)<td width="20" class="btn-success" align="right"> Already Resign
           @elseif(statusWorkflow($value->id)) <td width="20" class="btn-warning" align="right"> {!! statusWorkflow($value->id) !!}

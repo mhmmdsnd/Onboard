@@ -13,11 +13,11 @@
             @endforeach
         </div>
     @endif
-    {!! Form::open(['class'=>'form-horizontal','action' => 'OnboardController@store']) !!}
+    {!! Form::open(['class'=>'form-horizontal','action' => 'OnboardController@store','id'=>'hrform']) !!}
     <div class="form-group">
         {!! Form::label('name', 'Employee Name *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
         <div class="col-sm-9">
-		{!! Form::text('onboardName', null, ['class' => 'col-xs-10 col-sm-4']) !!}
+		{!! Form::text('onboardName', null, ['id'=>'onboardName','class' => 'col-xs-10 col-sm-4']) !!}
         </div>
     </div>
     <div class="form-group">
@@ -37,7 +37,19 @@
     <div class="form-group">
      	{!! Form::label('name', 'Level *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
         <div class="col-sm-9">
-		{!! Form::select('position_id',$position, null, ['placeholder' => 'Please Select...']) !!}
+		{!! Form::select('position_id',$position, null, ['id'=>'position_id','placeholder' => 'Please Select...']) !!}
+    	</div>
+    </div>
+    <div class="form-group">
+     	{!! Form::label('name', 'Title ', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+        <div class="col-sm-9">
+		{!! Form::text('title',null, ['class' => 'col-xs-10 col-sm-4']) !!}
+    	</div>
+    </div>
+    <div class="form-group">
+     	{!! Form::label('name', 'Grade ', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+        <div class="col-sm-9">
+		{!! Form::select('grade_id',$grade, null, ['placeholder' => 'Please Select...']) !!}
     	</div>
     </div>
     <div class="form-group">
@@ -58,6 +70,12 @@
     	</div>
     </div>
     <div class="form-group">
+     	{!! Form::label('name', 'Others ', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+        <div class="col-sm-9">
+		{!! Form::text('other_site',null, ['class' => 'col-xs-10 col-sm-4']) !!}
+    	</div>
+    </div>
+    <div class="form-group">
 	    <div class="col-md-offset-3 col-md-9">
   		{!! Form::submit('Submit', ['class' => 'btn btn-primary btn-xlg bigger-100 radius-4']) !!}
     	</div>
@@ -70,6 +88,7 @@
 @stop
 @section('custom-page-script')
 <script src="{{ asset('/bootstrap/js/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('/bootstrap/js/jquery.validate.min.js') }}"></script>
 <script>
     jQuery(function($) {
 		$("form").on("submit", function () {
@@ -95,6 +114,39 @@
 		.next().on(ace.click_event, function(){
 			$(this).prev().focus();
 		});
+		
+		$('#hrform').validate({
+			errorElement: 'div',
+			errorClass: 'help-block',
+			focusInvalid: false,
+			ignore: "",
+			rules: {
+				onboardName: {
+					required: true
+				},holding_id : {
+					required: true
+				}, onboardCompany : {
+					required: true
+				},onboardJoindate : {
+					required: true
+				}, position_id : {
+					required: true
+				}
+			},
+			highlight: function (e) {
+				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+			},
+			success: function (e) {
+				$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+				$(e).remove();
+			},
+			errorPlacement: function (error, element) {
+				error.insertAfter(element.parent());
+			},
+			submitHandler: function (form) {
+				form.submit();
+			}
+		});	
     });
 </script>
 @stop

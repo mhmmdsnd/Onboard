@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\CheckedItem;
 use App\ClearedItem;
 use App\Division;
+use App\Grade;
 use App\Holding;
 use App\Position;
 use App\Subdivision;
@@ -55,20 +56,23 @@ class OnboardController extends Controller
         $divisi = Division::pluck('name','id');
         $position = Position::pluck('name','id');
         $workplace = Workplace::pluck('name','id');
+        $grade = Grade::pluck('name','id');
 
-        return view('hrform',compact('holding','divisi','position','workplace')); #'subdivision',
+        return view('hrform',compact('holding','divisi','position','workplace','grade')); #'subdivision',
     }
     public function store(Request $request){
         $this->validate($request, [
-            'onboardName' => 'required','onboardCompany' => 'required',
+            'onboardName' => 'required','holding_id'=>'required',
+            'onboardCompany' => 'required',
             'onboardJoindate' => 'required','position_id' => 'required'
         ]);
 
         //INPUT TO REGISTER (ONBOARD)
         $input = array('name'=>$request->request->get('onboardName'),
             'division_id'=>'0',
-            'position_id'=>$request->request->get('position_id'),'subdivision_id'=>'0',
-            'company_id'=>$request->request->get('onboardCompany'),'joindate'=>$request->request->get('onboardJoindate'),
+            'position_id'=>$request->request->get('position_id'),'subdivision_id'=>'0','title'=> $request->input('title'),
+            'company_id'=>$request->request->get('onboardCompany'),'grade_id'=>$request->input('grade_id'),
+            'joindate'=>$request->request->get('onboardJoindate'),'other_site'=>$request->input('other_site'),
             'workplace_id'=>$request->request->get('onboardWP'),'created_by'=>Auth::user()->name);
         $result = Onboard::create($input);
 
@@ -91,7 +95,7 @@ class OnboardController extends Controller
         Session::flash('flash_message', 'New Employee Onboarding succesfully added!');
         return redirect()->action('ListboardController@index');
     }
-    #TRIAL ALL TEAM IT USING THIS CONTROLLER
+    #START TRIAL ALL TEAM IT USING THIS CONTROLLER
     public function itstore(Request $request){
         #MASTER ONBOARD
         $it_category = $request->input('it_category');
@@ -162,6 +166,7 @@ class OnboardController extends Controller
         Session::flash('flash_message', 'IT Area stage has been proceed!');
         return redirect()->action('ListboardController@index');
     }
+    #END TRIAL
     #START IT ADMIN
     public function itadm($onboardId)
     {

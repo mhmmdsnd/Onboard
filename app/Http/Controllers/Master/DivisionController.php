@@ -50,8 +50,26 @@ class DivisionController extends Controller
         /*$user = User::find('10');
         $user->detachRole(5);*/
 
-        /*$user = User::find('19');
+        /*$user = User::find('28');
         $user->detachRole(5);*/
+
+        $user = User::find('12');
+        $user->detachRole(5);
+
+        $user = User::find('13');
+        $user->detachRole(5);
+
+        $user = User::find('12');
+        $user->attachRole(8);
+
+        $user = User::find('13');
+        $user->attachRole(8);
+
+        /*$user = User::find('14');
+        $user->attachRole(3);*/
+
+       /* $user = User::find('15');
+        $user->attachRole(7);*/
 
         /*$user = User::find('33');
         $user->attachRole(3);
@@ -63,13 +81,13 @@ class DivisionController extends Controller
         $subdivision = Subdivision::distinct()->whereHas('item.suggested_list',function ($q) use ($division_id) {})->get()->pluck('id');
 
         dd($subdivision);*/
-        $username = "muhammad.sandy";
+        /*$username = "muhammad.sandy";
         $password = "New2AD2";
 
         if (Adldap::auth()->attempt($username, $password)) {
             // Passed!
             echo "Welcome";
-        }
+        }*/
 
 
     }

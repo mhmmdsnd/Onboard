@@ -74,7 +74,7 @@
             try{ace.settings.loadState('sidebar')}catch(e){}
         </script>
 		<ul class="nav nav-list">
-		    @role(['admin','hr'])
+		    @role(['admin','hr-rct','hr'])
             <li class="">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-desktop"></i>
@@ -91,12 +91,14 @@
                         </a>
                         <b class="arrow"></b>
                     </li>
+                    @role(['admin','hr-rct'])
                     <li class="">
                         <a href="{{ url('onboard') }}">
                             <i class="menu-icon fa fa-caret-right"></i>New
                         </a>
                         <b class="arrow"></b>
                     </li>
+                    @endrole
                 </ul>
 			</li>
             @endrole
@@ -115,7 +117,7 @@
                             <i class="menu-icon fa fa-caret-right"></i>Onboard</a>
                         <b class="arrow"></b>
                     </li>
-                    @role(['admin','hr','itadmin','itinfra','itapps'])
+                    @role(['admin','hr','itadmin','itinfra','itapps','hr-rct'])
                     <li class="">
                         <a href="{{ url('hrexit') }}">
                             <i class="menu-icon fa fa-caret-right"></i>Exit</a>
