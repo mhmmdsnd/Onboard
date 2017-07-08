@@ -53,12 +53,11 @@ class OnboardController extends Controller
     public function create(){
 
         $holding = Holding::pluck('name','id');
-        $divisi = Division::pluck('name','id');
         $position = Position::pluck('name','id');
         $workplace = Workplace::pluck('name','id');
         $grade = Grade::pluck('name','id');
 
-        return view('hrform',compact('holding','divisi','position','workplace','grade')); #'subdivision',
+        return view('hrform',compact('holding','position','workplace','grade')); #'divisi','subdivision',
     }
     public function store(Request $request){
         $this->validate($request, [
@@ -69,10 +68,12 @@ class OnboardController extends Controller
 
         //INPUT TO REGISTER (ONBOARD)
         $input = array('name'=>$request->request->get('onboardName'),
-            'division_id'=>'0',
-            'position_id'=>$request->request->get('position_id'),'subdivision_id'=>'0','title'=> $request->input('title'),
+            'division_id'=>'0','subdivision_id'=>'0',
+            'position_id'=>$request->request->get('position_id'),'title'=> $request->input('title'),
+            'division_name'=>$request->input('division_name'),'subdivision_name'=>$request->input('subdivision_name'),
+            'request_name'=>$request->input('request_name'),
             'company_id'=>$request->request->get('onboardCompany'),'grade_id'=>$request->input('grade_id'),
-            'joindate'=>$request->request->get('onboardJoindate'),'other_site'=>$request->input('other_site'),
+            'joindate'=>$request->request->get('onboardJoindate'),
             'workplace_id'=>$request->request->get('onboardWP'),'created_by'=>Auth::user()->name);
         $result = Onboard::create($input);
 
@@ -85,7 +86,9 @@ class OnboardController extends Controller
         $req->save();
 
         #CREATE WORKFLOW AS PER REQUEST (DIVISION IT=1)
-        $hasil = Subdivision::distinct()->has('item.suggested_list')->get()->pluck('id');
+        $hasil = Subdivision::distinct()->whereHas('item.suggested_list',function ($q) use ($result) {
+            $q->where('role_id','!=',0);
+        })->get()->pluck('id');
         foreach ($hasil as $it_cat) {
             $this->wfstore($result['id'],$it_cat,' ');
         }

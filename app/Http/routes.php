@@ -49,7 +49,7 @@ Route::group(['middleware' => ['role:hr|admin|hr-rct']], function() {
 
 });
 #ROUTE UNTUK EXIT REQUEST
-Route::group(['middleware' => ['role:itadmin|itinfra|itapps|hr|admin']], function() {
+Route::group(['middleware' => ['role:itadmin|itinfra|itapps|hr|admin|ga']], function() {
     Route::get('/hrexit', 'HRExitController@index'); #INDEX EXIT
     Route::get('/hrexit/{onboard_id}', 'HRExitController@hrexit'); #VIEW EXIT
     Route::post('/hrexit', 'HRExitController@store'); #STORE FORM EXIT

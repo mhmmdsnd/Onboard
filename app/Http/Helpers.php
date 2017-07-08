@@ -71,6 +71,9 @@ function sentemail($stage,$id,$name)
     } elseif ($stage == 2){
         $hrsent = RoleUser::with('users')->where('role_id', 5)->where('user_id','!=',1)->get();
         $detail = OnRequest::with('onboard.division','onboard.position')->where('id',$id)->first();
+        #DIVISION EMAIL
+        if($detail->onboard->division_id == 0) $div_name = $detail->onboard->division_name;
+        else $div_name = $detail->onboard->division->name;
         foreach ($hrsent as $hrinput) {
             if($detail->type_request == 'join')
             {
@@ -99,7 +102,7 @@ function sentemail($stage,$id,$name)
                 $hrinput = array_add($hrinput, 'name',$detail->onboard->name);
                 $hrinput = array_add($hrinput, 'url',$url);
                 $hrinput = array_add($hrinput, 'type_request',$detail->type_request);
-                $hrinput = array_add($hrinput, 'division',$detail->onboard->division->name);
+                $hrinput = array_add($hrinput, 'division',$div_name);
                 $hrinput = array_add($hrinput, 'position',$detail->onboard->position->name);
                 try {
                     Mail::send('emails.hrmail', ['sent' => $hrinput], function ($m) use ($hrinput) {
@@ -155,13 +158,17 @@ function sentemail($stage,$id,$name)
             if($input->role_id == 2) $url_role = "ITAdm";
             elseif ($input->role_id == 3) $url_role = "ITInfra";
             elseif ($input->role_id == 4) $url_role = "ITApps";
+            #UNTUK KEPERLUAN DIVISION
+            if($data_user->onboard->division_id == 0) $division_name = $data_user->onboard->division_name;
+            else $division_name = $data_user->onboard->division->name;
+            
             $input = array_add($input,'name',$data_user->onboard->name);
             $data_mail = array(
                 'itname' => $input->users->name,
                 'name' => $data_user->onboard->name,'request_id' => $id,
                 'user_type' =>$url_role,'url'=>$url,
                 'type_request'=>$data_user->type_request,
-                'division'=>$data_user->onboard->division->name,
+                'division'=>$division_name,
                 'position'=>$data_user->onboard->position->name
             );
             try{

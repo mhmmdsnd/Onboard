@@ -8,7 +8,7 @@ class Onboard extends Model
 {
     protected $table = "onboard";
     protected $fillable = ['name','division_id','company_id','joindate','workplace_id', 'email','subdivision_id','position_id','title',
-        'grade_id','other_site','created_at','created_by','updated_by','updated_at'];
+        'grade_id','division_name','subdivision_name','request_name','created_at','created_by','updated_by','updated_at'];
 
     protected $hidden = ['id'];
     protected $default = [];

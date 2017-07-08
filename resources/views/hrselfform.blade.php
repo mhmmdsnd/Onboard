@@ -4,7 +4,7 @@
 @section('content')
 <div class="container">
     @if ($req->type_request == 'join') {!! Form::open(array('url'=>'hr-detail','class'=>'form-horizontal')) !!}
-	@else {!! Form::open(['class'=>'form-horizontal','action' => 'HRExitController@itstore','id'=>'hr-detail']) !!} @endif
+	@else {!! Form::open(array('class'=>'form-horizontal','url' => 'hr-detail/exit','id'=>'hr-detail')) !!} @endif
     {!! Form::hidden('holding_id',$detail['company']->holdingId) !!}{!! Form::hidden('company_id',$detail->company_id) !!}
     {!! Form::hidden('division_id',$detail->division_id) !!}{!! Form::hidden('position_id',$detail->position_id) !!}
     {!! Form::hidden('type_request',$req->type_request,['id'=>'type_request']) !!}{!! Form::hidden('it_category',4) !!}

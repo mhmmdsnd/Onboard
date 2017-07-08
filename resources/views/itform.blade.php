@@ -1,14 +1,21 @@
 @extends('layouts.app')
 @section('sections', 'Request')
-@section('title', 'Workflow GA Department ')
+@section('title', 'Workflow IT Infrastructure ')
 @section('content')
 <div class="container">
-    @if ($req->type_request == 'join') {!! Form::open(array('url'=>'ga-detail','class'=>'form-horizontal')) !!}
-	@else {!! Form::open(array('class'=>'form-horizontal','url' => 'ga-detail/exit','id'=>'ga-detail')) !!} @endif
+    @if($errors->any())
+        <div class="alert alert-danger">
+            @foreach($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+    @endif
+	@if ($req->type_request == 'join') {!! Form::open(array('url'=>'ITInfra','class'=>'form-horizontal','id'=>'infra')) !!}
+	@else {!! Form::open(['class'=>'form-horizontal','action' => 'HRExitController@itstore','id'=>'infra']) !!} @endif
     {!! Form::hidden('holding_id',$detail['company']->holdingId) !!}{!! Form::hidden('company_id',$detail->company_id) !!}
     {!! Form::hidden('division_id',$detail->division_id) !!}{!! Form::hidden('position_id',$detail->position_id) !!}
-    {!! Form::hidden('type_request',$req->type_request,['id'=>'type_request']) !!}{!! Form::hidden('it_category',5) !!}
-        <div class="col-sm-10 col-sm-offset-1">
+    {!! Form::hidden('type_request',$req->type_request,['id'=>'type_request']) !!}{!! Form::hidden('it_category',2) !!}
+    <div class="col-sm-10 col-sm-offset-1">
 	<div class="widget-box transparent">
 		<div class="widget-header widget-header-large">
 			<h3 class="widget-title grey lighter">
@@ -42,14 +49,11 @@
                             <li>
                                 <i class="ace-icon fa fa-caret-right blue"></i>Division : <b class="red">@if($detail->division_id){!! $detail['division']->name !!}@endif</b>
                             </li>
-                            <li>
+                             <li>
                                 <i class="ace-icon fa fa-caret-right blue"></i>Department : <b class="red">@if($detail->subdivision_id){!! $detail['subdivision']->name !!}@endif</b>
                             </li>
                             <li>
                                 <i class="ace-icon fa fa-caret-right blue"></i>Level : <b class="red">{!! $detail['position']->name !!}</b>
-                            </li>
-                            <li>
-                                <i class="ace-icon fa fa-caret-right blue"></i>Title : <b class="red">{!! $detail->title !!}</b>
                             </li>
                             <li>
                                 <i class="ace-icon fa fa-caret-right blue"></i>Join Date : <b class="red">{!! $detail->joindate !!}</b>
@@ -57,9 +61,11 @@
                             <li>
                                 <i class="ace-icon fa fa-caret-right blue"></i>Workplace : <b class="red">{!! $detail['workplace']->name !!}</b>
                             </li>
+                            @if ($req->type_request == 'exit') 
                             <li>
                                 <i class="ace-icon fa fa-caret-right blue"></i>Email : <b class="red">{!! $detail->email !!}</b>
                             </li>
+                            @endif
                          </ul>
                     </div>
                 </div><!-- /.col -->
@@ -102,7 +108,7 @@
                             @foreach($suggested[2] as $key=>$value)
                             <div class="checkbox">
                             <label>
-                                {!! Form::checkbox('infra',1,in_array($value['item_id'],$list) ? 'checked' : '',['class'=>'ace','disabled'=>true]) !!}                               
+                                {!! Form::checkbox('is_checked['.$key.']',$value['item_id'],in_array($value['item_id'],$list) ? 'checked' : '',['class'=>'ace']) !!}                               
                                 <span class="lbl"> {!! $value['item']->name !!}</span>
                             </label>
                             </div>
@@ -170,7 +176,7 @@
                                 @foreach($suggested[5] as $key=>$value)
                                 <div class="checkbox">
                                 <label>
-                                    {!! Form::checkbox('is_checked['.$key.']',$value['item_id'],in_array($value['item_id'],$list) ? 'checked' : '',['class'=>'ace']) !!}                               
+                                    {!! Form::checkbox('apps','1',in_array($value['item_id'],$list) ? 'checked' : '',['class'=>'ace','disabled'=>true]) !!}                               
                                     <span class="lbl">	{!! $value['item']->name !!}</span>
                                 </label>
                                 </div>
@@ -183,6 +189,17 @@
             </div>
             <div class="space-24"></div>
             <!-- END ONBOARD DETAIL -->
+            @if ($req->type_request == 'join') 
+           <div class="form-group" id="email-block">
+            {!! Form::label('email', 'Email *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+            <div class="col-xs-12 col-sm-9">
+            	<div class="clearfix">
+                {!! Form::email('email', $detail->email, ['id'=>'email','class' => 'col-xs-8 col-sm-5']) !!}
+                </div>
+                <div class="help-block" id="email-error"></div>
+            </div>
+            </div>
+            @endif
             <div class="form-group">
                 {!! Form::label('name', 'Comments', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
                 <div class="col-sm-9">
@@ -200,8 +217,73 @@
          </div>
        </div>
     </div>
-	</div>
+	</div>    
     {!! Form::close() !!}
 </div>
 <link href="{{ asset('/bootstrap/css/jquery-ui.min.css') }}" rel="stylesheet" type="text/css" />
+@stop
+@section('custom-page-script')
+<script src="{{ asset('/bootstrap/js/jquery.validate.min.js') }}"></script>
+<script type="text/javascript">
+jQuery(function($) {
+	var type = $("#type_request").val();
+	if (type == 'join'){
+			$('#infra').validate({
+			errorElement: 'div',
+			errorClass: 'help-block',
+			focusInvalid: false,
+			ignore: "",
+			rules: {
+				email: {
+					required: true,
+					email:true
+				}
+			},
+			messages: {
+				email: {
+					required: "Please provide a valid email.",
+					email: "Please provide a valid email."
+				}
+			},
+			highlight: function (e) {
+				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+			},
+			success: function (e) {
+				$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+				$(e).remove();
+			},
+			errorPlacement: function (error, element) {
+				error.insertAfter(element.parent());
+			},
+			submitHandler: function (form) {
+				form.submit();
+			}
+		});	
+		$('#email').change(function(){
+			var email=$(this).val();
+			if(email.length > 3)
+			{
+				$.ajax({
+					type:"get",
+					dataType:"json",
+					url:"{{url('/ListOnBoard/usermail')}}",
+					data: {email: email},
+					success:function(data){
+						if(data==0){
+							$("#email-error").html("Username available");
+							$("#email-block").removeClass('has-error').addClass('has-info');
+							$("#submit").prop('disabled',false);
+							}
+						else{
+							$("#email-error").html("Username already taken");
+							$("#email-block").removeClass('has-info').addClass('has-error');
+							$("#submit").prop('disabled',true);
+						}
+					}
+				});
+			}
+		});
+	}
+});
+</script>
 @stop

@@ -10,6 +10,7 @@ use App\Workflow;
 use App\WorkflowDetail;
 use App\OnRequest;
 use App\RoleUser;
+use App\User;
 use Illuminate\Http\Request;
 
 use Carbon\Carbon;
@@ -103,7 +104,7 @@ class HRExitController extends Controller
             Onboard::where('id',$onboard_id)->update(['exit_date'=>Carbon::now(),'updated_by'=>Auth::user()->id]); #UNTUK UPDATE SISTEM EXIT DATE
             sentemail(2,$request_id,''); #EMAIL TO REVIEWER
             #REMOVE USERS
-            $result = Users::where('employee_id',$onboard_id)->first();
+            $result = User::where('employee_id',$onboard_id)->first();
             if($result) {
                 $user = User::find($result['id']);
                 $user->detachRole(6);

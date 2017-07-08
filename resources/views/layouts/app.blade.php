@@ -117,7 +117,7 @@
                             <i class="menu-icon fa fa-caret-right"></i>Onboard</a>
                         <b class="arrow"></b>
                     </li>
-                    @role(['admin','hr','itadmin','itinfra','itapps','hr-rct'])
+                    @role(['admin','hr','itadmin','itinfra','itapps','ga','hr-rct'])
                     <li class="">
                         <a href="{{ url('hrexit') }}">
                             <i class="menu-icon fa fa-caret-right"></i>Exit</a>
@@ -126,8 +126,9 @@
                     @endrole
                 </ul>
 			</li>
+            @role('admin')
             <li class="">
-                <a href="#" class="dropdown-toggle">
+            	<a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-desktop"></i>
                     <span class="menu-text">
                        SLA Report
@@ -143,6 +144,7 @@
                     </li>
                    </ul>
 			</li>
+            @endrole
         </ul>
         <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
             <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>

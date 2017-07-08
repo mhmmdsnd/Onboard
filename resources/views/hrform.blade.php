@@ -17,13 +17,17 @@
     <div class="form-group">
         {!! Form::label('name', 'Employee Name *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
         <div class="col-sm-9">
-		{!! Form::text('onboardName', null, ['id'=>'onboardName','class' => 'col-xs-10 col-sm-4']) !!}
+         <div class="clearfix">
+			{!! Form::text('onboardName', null, ['id'=>'onboardName','class' => 'col-xs-10 col-sm-4']) !!}
+        </div>
         </div>
     </div>
     <div class="form-group">
      	{!! Form::label('name', 'Group *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
         <div class="col-sm-9">
-		{!! Form::select('holding_id', $holding, null, ['id'=>'holding_id', 'placeholder' => 'Please Select...']) !!}
+        <div class="clearfix">
+			{!! Form::select('holding_id', $holding, null, ['id'=>'holding_id', 'placeholder' => 'Please Select...']) !!}
+        </div>
     	</div>
     </div>
     <div class="form-group">
@@ -35,9 +39,27 @@
     	</div>
     </div>
     <div class="form-group">
+     	{!! Form::label('name', 'Division *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+        <div class="col-sm-9">
+        <div class="clearfix">
+			{!! Form::text('division_name',null, ['id'=>'division_name','class' => 'col-xs-10 col-sm-4']) !!}
+        </div>
+    	</div>
+    </div>
+    <div class="form-group">
+     	{!! Form::label('name', 'Department *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+        <div class="col-sm-9">
+        <div class="clearfix">
+			{!! Form::text('subdivision_name',null, ['id'=>'subdivision_name','class' => 'col-xs-10 col-sm-4']) !!}
+        </div>
+    	</div>
+    </div>
+    <div class="form-group">
      	{!! Form::label('name', 'Level *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
         <div class="col-sm-9">
-		{!! Form::select('position_id',$position, null, ['id'=>'position_id','placeholder' => 'Please Select...']) !!}
+        <div class="clearfix">
+			{!! Form::select('position_id',$position, null, ['id'=>'position_id','placeholder' => 'Please Select...']) !!}
+           </div>
     	</div>
     </div>
     <div class="form-group">
@@ -53,9 +75,17 @@
     	</div>
     </div>
     <div class="form-group">
+     	{!! Form::label('name', 'Request By *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+        <div class="col-sm-9">
+        <div class="clearfix">
+			{!! Form::text('request_name',null, ['id'=>'request_name','class' => 'col-xs-10 col-sm-4']) !!}
+        </div>
+    	</div>
+    </div>
+    <div class="form-group">
      	{!! Form::label('name', 'Join Date *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
 		<div class="col-sm-9">
-        <div class="input-group">
+        <div class="input-group clearfix">
             <span class="input-group-addon">
                 <i class="fa fa-calendar bigger-110"></i>
             </span>
@@ -67,12 +97,6 @@
      	{!! Form::label('name', 'Workplace *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
         <div class="col-sm-9">
 		{!! Form::select('onboardWP',$workplace, null, ['placeholder' => 'Please Select...'], ['class' => 'input-xlg bigger-100']) !!}
-    	</div>
-    </div>
-    <div class="form-group">
-     	{!! Form::label('name', 'Others ', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
-        <div class="col-sm-9">
-		{!! Form::text('other_site',null, ['class' => 'col-xs-10 col-sm-4']) !!}
     	</div>
     </div>
     <div class="form-group">
@@ -91,9 +115,7 @@
 <script src="{{ asset('/bootstrap/js/jquery.validate.min.js') }}"></script>
 <script>
     jQuery(function($) {
-		$("form").on("submit", function () {
-    		$(this).find(":submit").prop("disabled", true);
-		});
+		
 		$('#holding_id').change(function(){
 			$.get("{{ url('/ListOnBoard/company')}}", 
 			{ group: $('#holding_id').val() }, 
@@ -125,11 +147,17 @@
 					required: true
 				},holding_id : {
 					required: true
-				}, onboardCompany : {
+				},onboardCompany : {
+					required: true
+				},division_name: {
+					required: true
+				},request_name : {
+					required: true
+				},subdivision_name : {
 					required: true
 				},onboardJoindate : {
 					required: true
-				}, position_id : {
+				},position_id : {
 					required: true
 				}
 			},
@@ -144,7 +172,9 @@
 				error.insertAfter(element.parent());
 			},
 			submitHandler: function (form) {
+				$('form input[type=submit]').attr('disabled', 'disabled');
 				form.submit();
+				return false;
 			}
 		});	
     });
