@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Master;
 
+use App\Company;
 use App\Holding;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
+use Regulus\ActivityLog\Models\Activity;
 
-class HoldingController extends Controller
+class CompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +20,9 @@ class HoldingController extends Controller
      */
     public function index()
     {
-        $result = Holding::get();
+        $result = Company::with('holding')->paginate(10);
 
-        return view('master.listholding', compact('result'));
+        return view('master.listcompany', compact('result'));
     }
 
     /**
@@ -31,7 +32,8 @@ class HoldingController extends Controller
      */
     public function create()
     {
-        return view('master.addholding');
+        $holding = Holding::pluck('name','id');
+        return view('master.addcompany',compact('holding'));
     }
 
     /**
@@ -42,14 +44,14 @@ class HoldingController extends Controller
      */
     public function store(Request $request)
     {
-        $create = New Holding();
-        $create->name = $request->input('group_name');
-        $create->created_by = Auth::user()->id;
+        $create = New Company();
+        $create->holdingId = $request->input('holding_id');
+        $create->name = $request->input('company_name');
         $create->save();
 
-        activity_log($create->id, 'Holding', 'Holding',$create->name,0);
-        Session::flash('flash_message', 'New Group succesfully added!');
-        return redirect('holding');
+        activity_log($create->id,'Company','Company',$create->holdingId.','.$create->name,0);
+        Session::flash('flash_message', 'New Company succesfully added!');
+        return redirect('company');
     }
 
     /**
@@ -71,8 +73,9 @@ class HoldingController extends Controller
      */
     public function edit($id)
     {
-        $holding = Holding::find($id);
-        return view('master.updateholding', compact('holding'));
+        $holding = Holding::pluck('name','id');
+        $company = Company::find($id);
+        return view('master.updatecompany',compact('holding','company'));
     }
 
     /**
@@ -84,16 +87,19 @@ class HoldingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $update = Holding::find($id);
-        $old_group_name = $update->getOriginal('name');
+        $update = Company::find($id);
+        $old_holding_id = $update->getOriginal('holdingId');
+        $old_company_name = $update->getOriginal('name');
 
-        $update->name = $request->input('group_name');
-        $update->updated_by = Auth::user()->id;
+        $update->holdingId = $request->input('holding_id');
+        $update->name = $request->input('company_name');
         $update->save();
 
-        activity_log($update->id, 'Holding', 'Holding',$old_group_name."=>".$update->name,1);
-        Session::flash('flash_message', 'Group succesfully updated!');
-        return redirect('holding');
+        if($old_holding_id != $update->holdingId) activity_log($update->id,'Company','Holding',$old_holding_id.'=>'.$update->holdingId,1);
+        if($old_company_name != $update->name) activity_log($update->id,'Company','Company',$old_company_name.'=>'.$update->name,1);
+
+        Session::flash('flash_message', 'Company succesfully updated!');
+        return redirect('company');
     }
 
     /**

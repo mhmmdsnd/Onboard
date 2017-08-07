@@ -123,7 +123,6 @@ class HRGAController extends Controller
         $req = OnRequest::where('id',$request_id)->first();
         if ($req)  {
             $detail = Onboard::with('company','division','workplace','position')->where('id',$req['onboard_id'])->first();
-            $activity = Activity::where('content_id',$detail->id)->where('content_type','Onboard')->get();
         }
         $type_request = $req->type_request;
         #MASTER ONBOARD

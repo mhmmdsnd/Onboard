@@ -86,11 +86,6 @@
                 </div><!-- /.col -->
          	</div><!-- /.row -->
             <div class="space"></div>
-            <h4 class="pink">
-                <i class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
-                <a href="#modal-table" role="button" class="green" data-toggle="modal"> View Log</a>
-            </h4>
-            <div class="space"></div>
             <h3 class="header smaller lighter blue">
                 <i class="ace-icon fa fa-leaf green"></i> Detail
             </h3>

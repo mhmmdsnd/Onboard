@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Master;
 
+use App\Company;
 use App\Onboard;
 use App\Holding;
 use App\Position;
@@ -28,7 +29,7 @@ class EmployeeController extends Controller
     }
     public function show($onboard_id){
         $detail = Onboard::with('company','division','workplace','position')->where('id',$onboard_id)->first();
-        $activity = Activity::where('content_id',$detail->id)->where('content_type','Onboard')->get();
+        $activity = Activity::where('content_id',$detail->id)->where('content_type','Onboard')->orderBy('updated_at','desc')->get(); //->
         #MASTER ONBOARD
         $result = Subdivision::distinct()->whereHas('item.employee_item',function ($q) use ($detail) {
             $q->where('role_id','!=',0);
@@ -113,7 +114,9 @@ class EmployeeController extends Controller
             activity_log($update_onboard->id,'Onboard','Title',$details,1);
         }
         if($old_position_id != $update_onboard->position_id) {
-            $details = $old_position_id."=>".$update_onboard->position_id;
+            $old_position = Position::find($old_position_id);
+            $new_position = Position::find($update_onboard->position_id);
+            $details = $old_position->name."=>".$new_position->name;
             activity_log($update_onboard->id,'Onboard','Position',$details,1);
         }
         if($old_request_name != $update_onboard->request_name) {
@@ -125,15 +128,21 @@ class EmployeeController extends Controller
             activity_log($update_onboard->id,'Onboard','Request Email',$details,1);
         }
         if($old_company_id != $update_onboard->company_id) {
-            $details = $old_company_id."=>".$update_onboard->company_id;
+            $old_company = Company::find($old_company_id);
+            $new_company = Company::find($update_onboard->company_id);
+            $details = $old_company->name."=>".$new_company->name;
             activity_log($update_onboard->id,'Onboard','Company',$details,1);
         }
         if($old_grade_id != $update_onboard->grade_id) {
-            $details = $old_grade_id."=>".$update_onboard->grade_id;
+            $old_grade = Grade::find($old_grade_id);
+            $new_grade = Grade::find($update_onboard->grade_id);
+            $details = $old_grade->name."=>".$new_grade->name;
             activity_log($update_onboard->id,'Onboard','Grade',$details,1);
         }
         if($old_workplace_id != $update_onboard->workplace_id) {
-            $details = $old_workplace_id."=>".$update_onboard->workplace_id;
+            $old_workplace = Workplace::find($old_workplace_id);
+            $new_workplace = Workplace::find($update_onboard->workplace_id);
+            $details = $old_workplace->name."=>".$new_workplace->name;
             activity_log($update_onboard->id,'Onboard','Workplace',$details,1);
         }
 

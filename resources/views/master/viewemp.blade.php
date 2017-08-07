@@ -143,15 +143,22 @@
                         <tr>
                             <th><i class="ace-icon fa fa-clock-o bigger-110"></i>Update</th>
                             <th>User</th>
-                            <th>Details</th>
+                            <th>Field</th>
+                            <th>Old Value</th>
+                            <th>New Value</th>
                         </tr>
                     </thead>
                     <tbody>
                     	@foreach($activity as $key=>$value)
+                        @php
+                        	$separate = explode('=>',$value->details);
+                        @endphp
                         <tr>
                             <td>{!! $value->created_at !!}</td>
-                            <td>{!! $value->user_id !!}</td>
-                            <td>{!! $value->details !!}</td>
+                            <td>{!! $value->user->name !!}</td>
+                            <td>{!! $value->description !!}</td>
+                            <td>{!! $separate[0] !!}</td>
+                            <td>{!! $separate[1] !!}</td>
                         </tr>
                         @endforeach
                     </tbody>
