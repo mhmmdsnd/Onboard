@@ -1,6 +1,9 @@
+@extends('layouts.emails')
+@section('title', 'Welcome Aboard')
+@section('content')
 Hi {!! $users['onboard']->name !!},<br />
 <br />
-We are from IT division. It is our pleasure to welcome you to the {!! $users['onboard']['subdivision']->name !!}  at {!! $users['onboard']['company']->name !!}.
+We are from IT division. It is our pleasure to welcome you to the @if($users['onboard']->subdivision_id){!! $users['onboard']['subdivision']->name !!} @else {!! $users['onboard']->subdivision_name !!} @endif  at {!! $users['onboard']['company']->name !!}.
 If you need any assistance in IT related matter, please contact:
 <br />
 <!-- START ONBOARD DETAIL -->
@@ -29,7 +32,7 @@ If you need any assistance in IT related matter, please contact:
     </div><!-- /.col -->
 </div><!-- /.row -->
 <div class="row">
-We've prepared few items for you, please refer to link below: <br />
+We've prepared few items for you, please refer to link below : <br />
 {!! $users['url'] !!}/users/{!! $users['id'] !!}<br />
 </div>
 <div class="row">
@@ -53,3 +56,4 @@ We've prepared few items for you, please refer to link below: <br />
 <!-- END ONBOARD DETAIL -->
 <br />
 Hope enjoy your work.
+@stop

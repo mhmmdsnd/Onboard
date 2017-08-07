@@ -11,6 +11,8 @@
         </div>
     @endif
     {!! Form::open(['class'=>'form-horizontal']) !!}
+    {!! Form::hidden('holding_id',$detail['company']->holdingId) !!}{!! Form::hidden('company_id',$detail->company_id) !!}
+    {!! Form::hidden('division_id',$detail->division_id) !!}{!! Form::hidden('position_id',$detail->position_id) !!}
     <div class="col-sm-10 col-sm-offset-1">
 	<div class="widget-box transparent">
 		<div class="widget-header widget-header-large">
@@ -34,6 +36,10 @@
                     <div>
                         <ul class="list-unstyled spaced">
                             <li>
+                                <i class="ace-icon fa fa-caret-right blue"></i>NIK : <b class="red">{!! $detail->nik !!}
+                                </b>
+                            </li>
+                            <li>
                                 <i class="ace-icon fa fa-caret-right blue"></i>Name : <b class="red">{!! Form::hidden('id',$req->id) !!}
                                 {!! Form::hidden('onboard_id',$detail->id) !!}{!! $detail->name !!}
                                 </b>
@@ -42,22 +48,35 @@
                                 <i class="ace-icon fa fa-caret-right blue"></i>Company : <b class="red">{!! $detail['company']->name !!}</b>
                             </li>
                             <li>
-                                <i class="ace-icon fa fa-caret-right blue"></i>Division : <b class="red">@if($detail->division_id){!! $detail['division']->name !!}@endif</b>
+                                <i class="ace-icon fa fa-caret-right blue"></i>Division : <b class="red">@if($detail->division_id){!! $detail['division']->name !!} @else {!! $detail->division_name !!} @endif</b>
                             </li>
                             <li>
-                                <i class="ace-icon fa fa-caret-right blue"></i>Department : <b class="red">@if($detail->subdivision_id){!! $detail['subdivision']->name !!}@endif</b>
+                                <i class="ace-icon fa fa-caret-right blue"></i>Department : <b class="red">@if($detail->subdivision_id){!! $detail['subdivision']->name !!} @else {!! $detail->subdivision_name !!} @endif</b>
                             </li>
                             <li>
-                                <i class="ace-icon fa fa-caret-right blue"></i>Level : <b class="red">{!! $detail['position']->name !!}</b>
+                                <i class="ace-icon fa fa-caret-right blue"></i>Level : <b class="red">@if($detail->position_id){!! $detail['position']->name !!} @endif</b>
+                            </li>
+                            <li>
+                                <i class="ace-icon fa fa-caret-right blue"></i>Grade : <b class="red">@if($detail->grade_id) {!! $detail->grade_id !!} @endif</b>
                             </li>
                             <li>
                                 <i class="ace-icon fa fa-caret-right blue"></i>Title : <b class="red">{!! $detail->title !!}</b>
                             </li>
                             <li>
-                                <i class="ace-icon fa fa-caret-right blue"></i>Join Date : <b class="red">{!! $detail->joindate !!}</b>
+                                <i class="ace-icon fa fa-caret-right blue"></i>Request By : <b class="red">{!! $detail->request_name !!}</b>
                             </li>
                             <li>
-                                <i class="ace-icon fa fa-caret-right blue"></i>Workplace : <b class="red">{!! $detail['workplace']->name !!}</b>
+                                <i class="ace-icon fa fa-caret-right blue"></i>Requester Email : <b class="red">{!! $detail->request_email !!}</b>
+                            </li>
+                            <li>
+                            	@if ($req->type_request == 'join')
+                                <i class="ace-icon fa fa-caret-right blue"></i>Join Date : <b class="red">{!! Carbon\Carbon::parse($detail->joindate)->format('d F Y') !!}</b>
+                            	@else
+                                <i class="ace-icon fa fa-caret-right blue"></i>Exit Date : <b class="red">{!! Carbon\Carbon::parse($detail->exit_date)->format('d F Y') !!}</b>
+                                @endif
+                            </li>
+                            <li>
+                                <i class="ace-icon fa fa-caret-right blue"></i>Workplace : <b class="red">@if($detail->workplace_id){!! $detail['workplace']->name !!} @endif</b>
                             </li>
                             <li>
                                 <i class="ace-icon fa fa-caret-right blue"></i>Email : <b class="red">{!! $detail->email !!}</b>
@@ -67,123 +86,45 @@
                 </div><!-- /.col -->
          	</div><!-- /.row -->
             <div class="space"></div>
+            <h4 class="pink">
+                <i class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
+                <a href="#modal-table" role="button" class="green" data-toggle="modal"> View Log</a>
+            </h4>
+            <div class="space"></div>
             <h3 class="header smaller lighter blue">
                 <i class="ace-icon fa fa-leaf green"></i> Detail
             </h3>
             <!-- START ONBOARD DETAIL -->
+            @foreach($result->chunk(3) as $resulted)
             <div class="row">
-            <!-- START IT ADMINISTRATOR -->
+            <!-- START IT -->
+            @foreach($resulted as $key=>$value)
             <div class="col-xs-12 col-sm-4">
-            	<div class="widget-box">
+                <div class="widget-box">
                     <div class="widget-header">
-                        <h4 class="widget-title">IT Administrator</h4>
+                        <h4 class="widget-title">{!! $value !!}</h4>
                     </div>
-					<div class="widget-body">
-						<div class="widget-main">  
-                            @foreach($suggested[1] as $key=>$value)
-                            <div class="checkbox">
-                            <label>
-                                {!! Form::checkbox('admin['.$key.']',$value['item_id'],in_array($value['item_id'],$employee) ? 'checked' : '',['class'=>'ace','disabled'=>true]) !!}
-                                <span class="lbl"> {!! $value['item']->name !!}</span>
-                            </label>
-                            </div>
-                            @endforeach
-                        </div>											
-					</div>                    
-                </div>
-            </div>
-            <!-- END IT ADMININSTRATOR -->
-            <!-- START IT INFRASTRUCTURE -->
-            <div class="col-xs-12 col-sm-4">
-            	<div class="widget-box">
-                	<div class="widget-header">
-                    	<h4 class="widget-title">IT Infrastructure</h4>
-                	</div>
-					<div class="widget-body">
-						<div class="widget-main">  
-                            @foreach($suggested[2] as $key=>$value)
-                            <div class="checkbox">
-                            <label>
-                                {!! Form::checkbox('infra['.$key.']',$value['item_id'],in_array($value['item_id'],$employee) ? 'checked' : '',['class'=>'ace','disabled'=>true]) !!}                               
-                                <span class="lbl"> {!! $value['item']->name !!}</span>
-                            </label>
-                            </div>
-                            @endforeach
-                        </div>											
-					</div>                    
-                </div>
-            </div>
-            <!-- END IT INFRASTRUCTURE -->
-            <!-- START IT APPLICATION -->
-            <div class="col-xs-12 col-sm-4">
-            	<div class="widget-box">
-	                <div class="widget-header">
-                    	<h4 class="widget-title">IT Application</h4>
-                	</div>
-					<div class="widget-body">
-						<div class="widget-main">  
-                            @foreach($suggested[3] as $key=>$value)
-                            <div class="checkbox">
-                            <label>
-                                {!! Form::checkbox('apps['.$key.']',$value['item_id'],in_array($value['item_id'],$employee) ? 'checked' : '',['class'=>'ace','disabled'=>true]) !!}                               
-                                <span class="lbl"> {!! $value['item']->name !!}</span>
-                            </label>
-                            </div>
-                            @endforeach
-                        </div>											
-					</div>                    
-                </div>
-            </div>
-            <!-- END IT APPLICATION -->
-            </div>
-            <div class="space-10"></div>
-            <!-- START ONBOARD DETAIL -->
-            <div class="row">
-				<!-- START HR Division -->
-                <div class="col-xs-12 col-sm-4">
-                    <div class="widget-box">
-                        <div class="widget-header">
-                            <h4 class="widget-title">HR Self-service</h4>
+                    <div class="widget-body">
+						<div class="widget-main"> 
+                      	@foreach($suggested[$key] as $item=>$itemval)
+                        <div class="checkbox">
+                        <label>
+                            {!! Form::checkbox('is_checked['.$key.']['.$item.']',$itemval['item_id'],in_array($itemval['item_id'],$employee) ? 'checked' : '' , ['disabled'=>'','class'=>'ace'] ) !!}        
+                            <span class="lbl">
+                            {!! $itemval['item']->name !!} @if($itemval['item']->brand) - {!! $itemval['item']->brand !!} @endif</span>
+                        </label>
                         </div>
-                        <div class="widget-body">
-                            <div class="widget-main">  
-                                @foreach($suggested[4] as $key=>$value)
-                                <div class="checkbox">
-                                <label>
-                                    {!! Form::checkbox('apps','1',in_array($value['item_id'],$employee) ? 'checked' : '',['class'=>'ace','disabled'=>true]) !!}                               
-                                    <span class="lbl">	{!! $value['item']->name !!}</span>
-                                </label>
-                                </div>
-                                @endforeach
-                            </div>											
-                        </div>                    
+                      @endforeach
+                      </div>
                     </div>
-            	</div>
-            <!-- END HR Division -->
-            	<!-- START GA Division -->
-                <div class="col-xs-12 col-sm-4">
-                    <div class="widget-box">
-                        <div class="widget-header">
-                            <h4 class="widget-title">GA Division</h4>
-                        </div>
-                        <div class="widget-body">
-                            <div class="widget-main">  
-                                @foreach($suggested[5] as $key=>$value)
-                                <div class="checkbox">
-                                <label>
-                                    {!! Form::checkbox('apps','1',in_array($value['item_id'],$employee) ? 'checked' : '',['class'=>'ace','disabled'=>true]) !!}                               
-                                    <span class="lbl">	{!! $value['item']->name !!}</span>
-                                </label>
-                                </div>
-                                @endforeach
-                            </div>											
-                        </div>                    
-                    </div>
-            	</div>
-                <!-- END GA Division -->
+                </div>
             </div>
-            <div class="space-24"></div>
+            @endforeach
+            <!-- END IT -->
+            </div>
+            @endforeach
             <!-- END ONBOARD DETAIL -->
+            <div class="space-24"></div>
             <div class="form-group">
                 {!! Form::label('name', 'HR Comments', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
                 <div class="col-sm-9">
@@ -207,7 +148,48 @@
         </div>
     </div>
     {!! Form::close() !!}
-	
+    <!-- START VIEW LOG -->
+    <div id="modal-table" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header no-padding">
+                <div class="table-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <span class="white">&times;</span>
+                    </button>
+                    Results for update log
+                </div>
+            </div>
+            <div class="modal-body no-padding">
+                <table class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
+                    <thead>
+                        <tr>
+                            <th><i class="ace-icon fa fa-clock-o bigger-110"></i>Update</th>
+                            <th>User</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    	@foreach($activity as $key=>$value)
+                        <tr>
+                            <td>{!! $value->created_at !!}</td>
+                            <td>{!! $value->user_id !!}</td>
+                            <td>{!! $value->details !!}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer no-margin-top">
+                <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal">
+                    <i class="ace-icon fa fa-times"></i>
+                    Close
+                </button>
+            </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <!-- END VIEW LOG -->
 </div>
 <link href="{{ asset('/bootstrap/css/jquery-ui.min.css') }}" rel="stylesheet" type="text/css" />
 @stop

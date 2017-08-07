@@ -14,4 +14,7 @@ class Subdivision extends Model
     public function item(){
         return $this->hasMany(Item::class,'subdivision_id','id');
     }
+    public function roleuser() {
+        return $this->hasOne(RoleUser::class,'role_id','role_id');
+    }
 }

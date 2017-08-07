@@ -28,7 +28,6 @@
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
                 <h4 class="widget-title lighter">
-                    <i class="ace-icon fa fa-star orange"></i>
                     SLA Report
                 </h4>
                 <div class="widget-toolbar">

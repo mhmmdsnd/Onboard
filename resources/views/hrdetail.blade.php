@@ -1,7 +1,10 @@
 @extends('layouts.app')
-@section('sections', 'Request')
-@section('title', 'Workflow HR ')
+@section('sections', 'Employee')
+@section('title', 'Edit Employee')
 @section('content')
+<div class="page-header">
+  <h1>@yield('title')</h1>
+</div>
 <div class="container">
     @if($errors->any())
         <div class="alert alert-danger">
@@ -10,187 +13,184 @@
             @endforeach
         </div>
     @endif
-    {!! Form::open(['class'=>'form-horizontal']) !!}
-    <div class="col-sm-10 col-sm-offset-1">
-	<div class="widget-box transparent">
-		<div class="widget-header widget-header-large">
-			<h3 class="widget-title grey lighter">
-				<i class="ace-icon fa fa-leaf green"></i>
-				@yield('title')
-			</h3>
-            <div class="widget-toolbar no-border invoice-info">
-                <span class="invoice-info-label">Request By :</span>
-                <span class="red">{!! $detail->created_by !!}</span>
-
-                <br />
-                <span class="invoice-info-label">Request Date :</span>
-                <span class="blue">{!! $detail->created_at->diffForHumans() !!}</span>
-            </div>
-		</div>
-		<div class="widget-body">
-        <div class="widget-main padding-24">
-            <div class="row">
-                <div class="col-sm-9">
-                    <div>
-                        <ul class="list-unstyled spaced">
-                            <li>
-                                <i class="ace-icon fa fa-caret-right blue"></i>Name : <b class="red">{!! Form::hidden('userId',1) !!}
-                                {!! Form::hidden('onboardId',$detail->id) !!}
-                                {!! $detail->name !!}
-                                </b>
-                            </li>
-                            <li>
-                                <i class="ace-icon fa fa-caret-right blue"></i>Company : <b class="red">{!! $detail['company']->name !!}</b>
-                            </li>
-                            <li>
-                                <i class="ace-icon fa fa-caret-right blue"></i>Division : <b class="red">{!! $detail['division']->name !!}</b>
-                            </li>
-                            <li>
-                                <i class="ace-icon fa fa-caret-right blue"></i>Level : <b class="red">{!! $detail['position']->name !!} </b>
-                            </li>
-                            <li>
-                                <i class="ace-icon fa fa-caret-right blue"></i>Join Date : <b class="red">{!! $detail->joindate !!}</b>
-                            </li>
-                            <li>
-                                <i class="ace-icon fa fa-caret-right blue"></i>Workplace : <b class="red">{!! $detail['workplace']->name !!}</b>
-                            </li>
-                            <li>
-                                <i class="ace-icon fa fa-caret-right blue"></i>Email : <b class="red">{!! $detail->email !!}</b>
-                            </li>
-                         </ul>
-                    </div>
-                </div><!-- /.col -->
-         	</div><!-- /.row -->
-            <div class="space"></div>
-            <h3 class="header smaller lighter blue">
-                <i class="ace-icon fa fa-leaf green"></i> Detail
-            </h3>
-			<!-- START ONBOARD DETAIL -->
-            <div class="row">
-            <!-- START IT ADMINISTRATOR -->
-            <div class="col-xs-12 col-sm-4">
-            	<div class="widget-box">
-                    <div class="widget-header">
-                        <h4 class="widget-title">IT Administrator</h4>
-                    </div>
-					<div class="widget-body">
-						<div class="widget-main">  
-                            @foreach($suggested as $key=>$value)
-                            <div class="checkbox">
-                            <label>
-                                {!! Form::checkbox('admin','1',true,['class'=>'ace','disabled'=>'true']) !!}                               
-                                <span class="lbl"> {!! $value['item']->name !!} @if($value['item']->brand) - {!! $value['item']->brand !!} @endif</span>
-                            </label>
-                            </div>
-                            @endforeach
-                        </div>											
-					</div>                    
-                </div>
-            </div>
-            <!-- END IT ADMININSTRATOR -->
-            <!-- START IT INFRASTRUCTURE -->
-            <div class="col-xs-12 col-sm-4">
-            	<div class="widget-box">
-                	<div class="widget-header">
-                    	<h4 class="widget-title">IT Infrastructure</h4>
-                	</div>
-					<div class="widget-body">
-						<div class="widget-main">  
-                            @foreach($infra as $key=>$value)
-                            <div class="checkbox">
-                            <label>
-                                {!! Form::checkbox('infra',1,true,['class'=>'ace','disabled'=>'true']) !!}                               
-                                <span class="lbl"> {!! $value['item']->name !!}</span>
-                            </label>
-                            </div>
-                            @endforeach
-                        </div>											
-					</div>                    
-                </div>
-            </div>
-            <!-- END IT INFRASTRUCTURE -->
-            <!-- START IT APPLICATION -->
-            <div class="col-xs-12 col-sm-4">
-            	<div class="widget-box">
-	                <div class="widget-header">
-                    	<h4 class="widget-title">IT Application</h4>
-                	</div>
-					<div class="widget-body">
-						<div class="widget-main">  
-                            @foreach($apps as $key=>$value)
-                            <div class="checkbox">
-                            <label>
-                                {!! Form::checkbox('apps',1,true,['class'=>'ace','disabled'=>'true']) !!}                               
-                                <span class="lbl"> {!! $value['item']->name !!}</span>
-                            </label>
-                            </div>
-                            @endforeach
-                        </div>											
-					</div>                    
-                </div>
-            </div>
-            <!-- END IT APPLICATION -->
-            </div>
-            <div class="space-10"></div>
-            <!-- END ONBOARD DETAIL -->
-            <!-- START ONBOARD DETAIL -->
-            <div class="row">
-            <!-- START HR Division -->
-            <div class="col-xs-12 col-sm-4">
-                <div class="widget-box">
-                    <div class="widget-header">
-                        <h4 class="widget-title">HR Self-service</h4>
-                    </div>
-                    <div class="widget-body">
-                        <div class="widget-main">  
-                            @foreach($suggested[4] as $key=>$value)
-                            <div class="checkbox">
-                            <label>
-                                {!! Form::checkbox('apps','1',in_array($value['item_id'],$list) ? 'checked' : '',['class'=>'ace','disabled'=>true]) !!}                               
-                                <span class="lbl">	{!! $value['item']->name !!}</span>
-                            </label>
-                            </div>
-                            @endforeach
-                        </div>											
-                    </div>                    
-                </div>
-            </div>
-            <!-- END HR Division -->
-            <!-- START GA Division -->
-            <div class="col-xs-12 col-sm-4">
-                <div class="widget-box">
-                    <div class="widget-header">
-                        <h4 class="widget-title">GA Division</h4>
-                    </div>
-                    <div class="widget-body">
-                        <div class="widget-main">  
-                            @foreach($suggested[5] as $key=>$value)
-                            <div class="checkbox">
-                            <label>
-                                {!! Form::checkbox('apps','1',in_array($value['item_id'],$list) ? 'checked' : '',['class'=>'ace','disabled'=>true]) !!}                               
-                                <span class="lbl">	{!! $value['item']->name !!}</span>
-                            </label>
-                            </div>
-                            @endforeach
-                        </div>											
-                    </div>                    
-                </div>
-            </div>
-            <!-- END GA Division -->
+	{!! Form::open(array('method'=>'PUT','class'=>'form-horizontal','url'=>'employee/'.$request->id,'id'=>'hrform')) !!}
+    <div class="form-group">
+        {!! Form::label('name', 'Employee Name *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+        <div class="col-sm-9">
+         <div class="clearfix">
+         	{!! Form::hidden('onboard_id', $request->id, ['id'=>'request_id']) !!}
+            {!! Form::hidden('company_id', $request->company_id, ['id'=>'company_id']) !!}
+			{!! Form::text('onboardName', $request->name, ['id'=>'onboardName','class' => 'col-xs-10 col-sm-4']) !!}
         </div>
-        <div class="space-24"></div>
-        <!-- END ONBOARD DETAIL -->
+        </div>
+    </div>
+    <div class="form-group">
+     	{!! Form::label('name', 'Group *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+        <div class="col-sm-9">
+        <div class="clearfix">
+			{!! Form::select('holding_id', $holding, $request['company']->holdingId, ['id'=>'holding_id', 'placeholder' => 'Please Select...']) !!}
+        </div>
+    	</div>
+    </div>
+    <div class="form-group">
+     	{!! Form::label('name', 'Company *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+        <div class="col-sm-9">
+        <select id='onboardCompany' name="onboardCompany">
+        	<option>Please Select...</option>
+        </select>
+    	</div>
+    </div>
+    <div class="form-group">
+     	{!! Form::label('name', 'Division *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+        <div class="col-sm-9">
+        <div class="clearfix">
+			{!! Form::text('division_name', $request->division_name,  ['id'=>'division_name','class' => 'col-xs-10 col-sm-4']) !!}
+        </div>
+    	</div>
+    </div>
+    <div class="form-group">
+     	{!! Form::label('name', 'Department *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+        <div class="col-sm-9">
+        <div class="clearfix">
+			{!! Form::text('subdivision_name',$request->subdivision_name, ['id'=>'subdivision_name','class' => 'col-xs-10 col-sm-4']) !!}
+        </div>
+    	</div>
+    </div>
+    <div class="form-group">
+     	{!! Form::label('name', 'Level *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+        <div class="col-sm-9">
+        <div class="clearfix">
+			{!! Form::select('position_id',$position, $request->position_id, ['id'=>'position_id','placeholder' => 'Please Select...']) !!}
+           </div>
+    	</div>
+    </div>
+    <div class="form-group">
+     	{!! Form::label('name', 'Title ', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+        <div class="col-sm-9">
+		{!! Form::text('title',$request->title, ['class' => 'col-xs-10 col-sm-4']) !!}
+    	</div>
+    </div>
+    <div class="form-group">
+     	{!! Form::label('name', 'Grade ', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+        <div class="col-sm-9">
+		{!! Form::select('grade_id',$grade, $request->grade_id, ['placeholder' => 'Please Select...']) !!}
+    	</div>
+    </div>
+    <div class="form-group">
+     	{!! Form::label('name', 'Request By *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+        <div class="col-sm-9">
+        <div class="clearfix">
+			{!! Form::text('request_name',$request->request_name, ['id'=>'request_name','class' => 'col-xs-10 col-sm-4']) !!}
+        </div>
+    	</div>
+    </div>
+    <div class="form-group">
+     	{!! Form::label('name', 'Requester Email *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+        <div class="col-sm-9">
+        <div class="clearfix">
+			{!! Form::text('request_email',$request->request_email, ['id'=>'request_email','class' => 'col-xs-10 col-sm-4']) !!}
+        </div>
+    	</div>
+    </div>
+    <div class="form-group">
+     	{!! Form::label('name', 'Join Date *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+		<div class="col-sm-9">
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-calendar bigger-110"></i>
+            </span>
+        {!! Form::date('onboardJoindate', $request->joindate, ['id'=>'onboardJoindate','class' => 'col-xs-4 col-sm-2 date-picker', 'data-date-format'=>'yyyy-mm-dd', 'readonly'=>'']) !!}
+        </div>
     </div>
     </div>
-    <div class="hr hr-16 hr-dotted"></div>
-        <div class="clearfix ">
-           <div class="col-md-offset-3 col-md-9">
-            <a class="btn btn-primary radius-4 " href="{{ url()->previous() }}">Back</a>
-         </div>
-       </div>
+    <div class="form-group">
+     	{!! Form::label('name', 'Workplace *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+        <div class="col-sm-9">
+		{!! Form::select('onboardWP',$workplace, $request->workplace_id, ['placeholder' => 'Please Select...'], ['class' => 'input-xlg bigger-100']) !!}
+    	</div>
     </div>
-	</div>    
+    <div class="form-group">
+	    <div class="col-md-offset-3 col-md-9">
+  		{!! Form::submit('Submit', ['class' => 'btn btn-primary btn-xlg bigger-100 radius-4']) !!}
+    	</div>
+    </div>  
 	{!! Form::close() !!}
 </div>
+@stop
+@section('custom-page-script')
 <link href="{{ asset('/bootstrap/css/jquery-ui.min.css') }}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{{ asset('/bootstrap/css/bootstrap-datepicker3.min.css') }}" />
+<script src="{{ asset('/bootstrap/js/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('/bootstrap/js/jquery.validate.min.js') }}"></script>
+<script>
+	var company = $('#company_id').val();
+	function get_company()
+	{
+		$.get("{{ url('/ListOnBoard/company')}}", 
+		{ group: $('#holding_id').val() }, 
+		function(data) {
+				var model = $('#onboardCompany');
+				model.empty();
+				$.each(data, function(key, value) {
+					if(company == key) {
+						model.append("<option value='"+ key +"' selected>" + value + "</option>");
+					} else 
+						model.append("<option value='"+ key +"' >" + value + "</option>");
+				});
+		});
+	}
+    jQuery(function($) {
+		$(document).ready( get_company );
+		$('#holding_id').change( get_company );
+		$('.date-picker').datepicker({
+			autoclose: true,
+			todayHighlight: true
+		})
+		//show datepicker when clicking on the icon
+		.next().on(ace.click_event, function(){
+			$(this).prev().focus();
+		});
+		
+		$('#hrform').validate({
+			errorElement: 'div',
+			errorClass: 'help-block',
+			focusInvalid: false,
+			ignore: "",
+			rules: {
+				onboardName: {
+					required: true
+				},holding_id : {
+					required: true
+				},onboardCompany : {
+					required: true
+				},division_name: {
+					required: true
+				},request_name : {
+					required: true
+				},subdivision_name : {
+					required: true
+				},onboardJoindate : {
+					required: true
+				},position_id : {
+					required: true
+				}
+			},
+			highlight: function (e) {
+				$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+			},
+			success: function (e) {
+				$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+				$(e).remove();
+			},
+			errorPlacement: function (error, element) {
+				error.insertAfter(element.parent());
+			},
+			submitHandler: function (form) {
+				$('form input[type=submit]').attr('disabled', 'disabled');
+				form.submit();
+				return false;
+			}
+		});	
+    });
+</script>
 @stop

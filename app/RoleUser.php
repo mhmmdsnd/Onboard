@@ -15,4 +15,7 @@ class RoleUser extends Model
     public function roles(){
         return $this->hasOne(Role::class,'id','role_id');
     }
+    public function subdivision(){
+        return $this->hasOne(Subdivision::class,'role_id','role_id');
+    }
 }

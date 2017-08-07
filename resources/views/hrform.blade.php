@@ -13,7 +13,7 @@
             @endforeach
         </div>
     @endif
-    {!! Form::open(['class'=>'form-horizontal','action' => 'OnboardController@store','id'=>'hrform']) !!}
+    {!! Form::open(array('class'=>'form-horizontal','url'=>'onboard','id'=>'hrform')) !!}
     <div class="form-group">
         {!! Form::label('name', 'Employee Name *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
         <div class="col-sm-9">
@@ -71,21 +71,29 @@
     <div class="form-group">
      	{!! Form::label('name', 'Grade ', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
         <div class="col-sm-9">
-		{!! Form::select('grade_id',$grade, null, ['placeholder' => 'Please Select...']) !!}
+		{!! Form::select('grade_id',$grade, null, ['id'=>'grade_id','placeholder' => 'Please Select...']) !!}
     	</div>
     </div>
     <div class="form-group">
      	{!! Form::label('name', 'Request By *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
         <div class="col-sm-9">
         <div class="clearfix">
-			{!! Form::text('request_name',null, ['id'=>'request_name','class' => 'col-xs-10 col-sm-4']) !!}
+			{!! Form::text('request_name',null, ['id'=>'request_name','class' => 'col-xs-10 col-sm-4']) !!}	
+        </div>
+    	</div>
+    </div>
+    <div class="form-group">
+     	{!! Form::label('name', 'Requester Email *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
+        <div class="col-sm-9">
+        <div class="clearfix">
+			{!! Form::text('request_email',null, ['id'=>'request_email','class' => 'col-xs-10 col-sm-4']) !!}
         </div>
     	</div>
     </div>
     <div class="form-group">
      	{!! Form::label('name', 'Join Date *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
 		<div class="col-sm-9">
-        <div class="input-group clearfix">
+        <div class="input-group">
             <span class="input-group-addon">
                 <i class="fa fa-calendar bigger-110"></i>
             </span>
@@ -96,7 +104,7 @@
     <div class="form-group">
      	{!! Form::label('name', 'Workplace *', ['class' => 'col-sm-3 control-label no-padding-right']) !!}
         <div class="col-sm-9">
-		{!! Form::select('onboardWP',$workplace, null, ['placeholder' => 'Please Select...'], ['class' => 'input-xlg bigger-100']) !!}
+		{!! Form::select('onboardWP',$workplace, null, ['id'=>'onboardWP','placeholder' => 'Please Select...'], ['class' => 'input-xlg bigger-100']) !!}
     	</div>
     </div>
     <div class="form-group">
@@ -107,15 +115,16 @@
     {!! Form::close() !!}
 
 </div>
-<link href="{{ asset('/bootstrap/css/jquery-ui.min.css') }}" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="{{ asset('/bootstrap/css/bootstrap-datepicker3.min.css') }}" />
 @stop
 @section('custom-page-script')
+<link href="{{ asset('/bootstrap/css/jquery-ui.min.css') }}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{{ asset('/bootstrap/css/bootstrap-datepicker3.min.css') }}" />
+<link href="{{ asset('/bootstrap/css/pace.min.css') }}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{{ asset('/bootstrap/js/pace.min.js') }}"></script>
 <script src="{{ asset('/bootstrap/js/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ asset('/bootstrap/js/jquery.validate.min.js') }}"></script>
 <script>
-    jQuery(function($) {
-		
+    jQuery(function($) {	
 		$('#holding_id').change(function(){
 			$.get("{{ url('/ListOnBoard/company')}}", 
 			{ group: $('#holding_id').val() }, 
@@ -153,11 +162,17 @@
 					required: true
 				},request_name : {
 					required: true
+				},request_email : {
+					required: true
 				},subdivision_name : {
 					required: true
 				},onboardJoindate : {
 					required: true
 				},position_id : {
+					required: true
+				},grade_id : {
+					required: true
+				},onboardWP : {
 					required: true
 				}
 			},

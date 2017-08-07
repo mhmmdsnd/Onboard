@@ -3,12 +3,15 @@
 use App\Workflow;
 use App\WorkflowDetail;
 use App\RoleUser;
+use App\Subdivision;
 use App\SuggestedList;
 use App\PreparedItem;
 use App\CheckedItem;
 use App\OnboardItem;
 use App\ClearedItem;
 use App\OnRequest;
+use App\Onboard;
+use Carbon\Carbon;
 
 #START DATEWORKFLOW
 function dateWorkflow($request_id,$it_category,$holding_id,$company_id,$division_id,$position_id){
@@ -22,47 +25,76 @@ function dateWorkflow($request_id,$it_category,$holding_id,$company_id,$division
         $q->where('subdivision_id',$it_category);
     })->where('onboard_id',$data_req['onboard_id'])->count();
 
-    $wf_detail = WorkflowDetail::where('workflow_id',$result['id'])->count();
-    ($result['completed_at']) ? $created_date = Carbon\Carbon::parse($result->completed_at)->format('Y-m-d') : $created_date = $wf_detail."/".$suggested;
+    if($data_req['type_request']=="join")  $wf_detail = WorkflowDetail::where('workflow_id', $result['id'])->count();
+    else $wf_detail = ClearedItem::whereHas('item',function ($q) use ($it_category) {
+        $q->where('subdivision_id',$it_category);
+    })->where('onboard_id',$data_req['onboard_id'])->count();
+
+    ($result['completed_at']) ? $created_date = Carbon::parse($result->completed_at)->format('d/m/Y') : $created_date = $wf_detail."/".$suggested;
     return $created_date;
 }
 function statusWorkflow($onboard_id)
 {
-    $result = OnRequest::where('onboard_id',$onboard_id)->first();
-    if(!$result['delivery_date']){
+    $result = Onboard::with('onrequest')->where('id',$onboard_id)->first();
+    if(!$result['onrequest']['delivery_date'] && !$result['board_date']){
         $hasil = "On Progress Onboard";
-    }elseif ($result['type_request']=='exit'){
+    }elseif ($result['onrequest']['type_request']=='exit'){
         $hasil = "On Progress Exit";
     }else $hasil = null;
+
+    return $hasil;
+}
+#update per 13/7
+function statusError($request_id,$workflow_stage = null){
+    $now = Carbon::now();
+    $result = OnRequest::with('onboard')->where('id',$request_id)->first();
+    $workflow = Workflow::where('request_id',$request_id)->where('it_category',$workflow_stage)->first();
+    if ($result['type_request']=='join') {
+        $diff = Carbon::parse($now)->diffInDays(Carbon::parse($result['onboard']->joindate),false);
+    } else {
+        $diff = Carbon::parse($now)->diffInDays(Carbon::parse($result['onboard']->exit_date),false);
+    }
+    if($result['delivery_date'] || $result['onboard']->clearance_date || $workflow['completed_at']) {
+        $hasil = "btn-success";
+    } elseif ($diff < 0) {
+        $hasil = "btn-danger";
+    } else $hasil = "btn-warning";
 
     return $hasil;
 }
 #END DATEWORKFLOW
 #START SEND EMAIL
 #(1=NEW-TO-IT,2=IT-TO-HR,3=HR-TO-USR,4=USR-TO-HR,5=HR-TO-IT[EXIT])
-function sentemail($stage,$id,$name)
+function sentemail($stage,$id,$emp_id)
 {
     $url = url("/"); #URL BY REQUEST
     if($stage == 1){
-        $sent = RoleUser::with('users')->whereIn('role_id',[2,3,4,5,7])->where('user_id','!=',1)->get();
+        $sent = RoleUser::with('users')->whereIn('role_id',[2,3,5,7,8,10])->where('user_id','!=',1)->get();
+        $data_emp = Onboard::with('company','division','workplace','position')->where('id',$emp_id)->first();
         foreach ($sent as $input){
             if($input->role_id == 2) $url_role = "ITAdm";
             elseif ($input->role_id == 3) $url_role = "ITInfra";
             elseif ($input->role_id == 4) $url_role = "ITApps";
             elseif ($input->role_id == 5) $url_role = "hr-detail";
             elseif ($input->role_id == 7) $url_role = "ga-detail";
-            else $input->role_id = "Users";
-            $input = array_add($input,'name',$name);
+            else $url_role = "users";
             $data_mail = array(
-                'itname' => $input->users->name,
-                'name' => $name,'request_id' => $id,
-                'user_type' =>$url_role,
-                'url'=>$url, 'type_request'=>'join'
+                'wf_name' => $input->users->name, 'wf_email' => $input->users->email ,
+                'name' => $data_emp->name,'request_id' => $id, 'company'=> $data_emp->company->name,
+                'division'=>$data_emp->division_name, 'department'=>$data_emp->subdivision_name,
+                'position'=>$data_emp->position->name, 'grade'=>$data_emp->grade_id,
+                'request_name'=>$data_emp->request_name, 'request_email'=>$data_emp->request_email,
+                'title'=>$data_emp->title, 'join_date'=>$data_emp->joindate,
+                'workplace'=>$data_emp->workplace->name, 'email'=>$data_emp->email,
+                'user_type' =>$url_role,'url'=>$url, 'type_request'=>'join'
             );
             try{
-                Mail::send('emails.emails',['data'=>$data_mail],function ($m) use ($input) {
-                    $m->from("npd@sinarmasmining.com", null);
-                    $m->to($input['users']['email'], null)->subject('New Employee OnBoarding : '.$input['name']);
+                Mail::send('emails.emails',['data'=>$data_mail],function ($m) use ($data_mail) {
+                    if(!config('mail.to')){
+                        $m->to($data_mail['email'], null);
+                    }
+                    $m->subject('New Employee OnBoarding : '.$data_mail['name']);
+                    $m->getSwiftMessage();
                 });
             } catch (\Exception $error){
                 #echo $error;
@@ -83,15 +115,19 @@ function sentemail($stage,$id,$name)
                 $hrinput = array_add($hrinput, 'url',$url);
                 $hrinput = array_add($hrinput, 'type_request',$detail->type_request);
                 #MASTER ONBOARD
-                for($i=1;$i<=5;$i++){
+                $result = Subdivision::distinct()->whereHas('item.prepared_item',function ($q) use ($id) {
+                    $q->where('subdivision_id','!=',12);
+                })->get()->pluck('name','id');
+                foreach ($result as $i=>$xy) {
                     $suggested[$i] = suggested_detail('',$id,'review',$i);
                 }
 
                 try {
-                    Mail::send('emails.hrmail', ['sent' => $hrinput,'admin'=>$suggested[1],'infra'=>$suggested[2],'apps'=>$suggested[3]
-                        ,'hrself'=>$suggested[4],'gadept'=>$suggested[5]], function ($m) use ($hrinput) {
-                        $m->from("npd@sinarmasmining.com", null);
-                        $m->to($hrinput['users']['email'], null)->subject('Review Employee Onboarding : '.$hrinput['name']);
+                    Mail::send('emails.hrmail', ['sent' => $hrinput,'result'=>$result,'suggested'=>$suggested], function ($m) use ($hrinput) {
+                        if(!config('mail.to')){
+                            $m->to($hrinput['users']['email'], null);
+                        }
+                        $m->subject('Review Employee Onboarding : '.$hrinput['name']);
                     });
                 } catch (\Exception $error) {
                     #echo $error;
@@ -106,8 +142,10 @@ function sentemail($stage,$id,$name)
                 $hrinput = array_add($hrinput, 'position',$detail->onboard->position->name);
                 try {
                     Mail::send('emails.hrmail', ['sent' => $hrinput], function ($m) use ($hrinput) {
-                        $m->from("npd@sinarmasmining.com", null);
-                        $m->to($hrinput['users']['email'], null)->subject('Employee Clearance Confirmation : '.$hrinput['name']);
+                        if(!config('mail.to')){
+                            $m->to($hrinput['users']['email'], null);
+                        }
+                        $m->subject('Employee Clearance Confirmation : '.$hrinput['name']);
                     });
                 } catch (\Exception $error) {
                     #echo $error;
@@ -122,11 +160,13 @@ function sentemail($stage,$id,$name)
         {
             try {
                 Mail::send('emails.usmail', ['users' => $sent], function ($mg) use ($sent) {
-                    $mg->from("npd@sinarmasmining.com", null);
-                    $mg->to($sent->onboard->email, null)->subject('[IT Division] Welcome aboard '.$sent->onboard->name);
+                    if(!config('mail.to')){
+                        $mg->to($sent->onboard->email, null);
+                    }
+                    $mg->subject('[IT Division] Welcome aboard '.$sent->onboard->name);
                 });
             } catch (\Exception $error) {
-                #dd($error->getMessage());
+                #echo $error;
             }
         }
     }
@@ -138,43 +178,54 @@ function sentemail($stage,$id,$name)
             $hrinput = array_add($hrinput, 'url',$url);
             #MASTER ONBOARD
             $detail = OnRequest::with('onboard')->where('id',$id)->first();
-            for($i=1;$i<=5;$i++){
+            $result = Subdivision::distinct()->whereHas('item.employee_item',function ($q) use ($id) {
+                $q->where('role_id','!=',0);
+            })->get()->pluck('name','id');
+            foreach ($result as $i=>$xy) {
                 $suggested[$i] = suggested_detail($detail['onboard_id'],'','',$i);
             }
             try {
-                Mail::send('emails.revmail', ['sent' => $hrinput,'admin'=>$suggested[1],'infra'=>$suggested[2],'apps'=>$suggested[3]
-                    ,'hrself'=>$suggested[4],'gadept'=>$suggested[5]], function ($m) use ($hrinput) {
-                    $m->from("npd@sinarmasmining.com", null);
-                    $m->to($hrinput['users']['email'], null)->subject('Employee Checklist');
+                Mail::send('emails.revmail', ['sent' => $hrinput,'suggested'=>$suggested,'result'=>$result], function ($m) use ($hrinput) {
+                    if(!config('mail.to')){
+                        $m->to($hrinput['users']['email'], null);
+                    }
+                    $m->subject('Employee Checklist');
                 });
             } catch (\Exception $error) {
                 #echo $error;
             }
         }
-    }elseif ($stage == 5){ #EXIT EMAL PROCESS
-        $sent = RoleUser::with('users')->whereIn('role_id',[2,3,4,5,7])->where('user_id','!=',1)->get();
-        $data_user = OnRequest::with('onboard.division','onboard.position')->where('id',$id)->first();
+    }elseif ($stage == 5){ #EXIT EMAIL PROCESS
+        $sent = RoleUser::with('users')->whereIn('role_id',[2,3,5,7,8,10])->where('user_id','!=',1)->get();
+        $data_user = OnRequest::with('onboard','onboard.division','onboard.position')->where('id',$id)->first();
         foreach ($sent as $input){
             if($input->role_id == 2) $url_role = "ITAdm";
             elseif ($input->role_id == 3) $url_role = "ITInfra";
             elseif ($input->role_id == 4) $url_role = "ITApps";
+            elseif ($input->role_id == 5) $url_role = "hr-detail";
+            elseif ($input->role_id == 7) $url_role = "ga-detail";
+
             #UNTUK KEPERLUAN DIVISION
             if($data_user->onboard->division_id == 0) $division_name = $data_user->onboard->division_name;
             else $division_name = $data_user->onboard->division->name;
+            if($data_user->onboard->position_id == 0) $position_name = " ";
+            else $position_name = $data_user->onboard->position->name;
             
             $input = array_add($input,'name',$data_user->onboard->name);
             $data_mail = array(
-                'itname' => $input->users->name,
+                'wf_name' => $input->users->name,
                 'name' => $data_user->onboard->name,'request_id' => $id,
                 'user_type' =>$url_role,'url'=>$url,
                 'type_request'=>$data_user->type_request,
                 'division'=>$division_name,
-                'position'=>$data_user->onboard->position->name
+                'position'=>$position_name
             );
             try{
                 Mail::send('emails.emails',['data'=>$data_mail],function ($m) use ($input) {
-                    $m->from("npd@sinarmasmining.com", null);
-                    $m->to($input['users']['email'], null)->subject('Employee Clearance Request : '.$input['name']);
+                    if(!config('mail.to')){
+                        $m->to($input['users']['email'], null);
+                    }
+                    $m->subject('Employee Clearance Request : '.$input['name']);
                 });
             } catch (\Exception $error){
                 #echo $error;
@@ -231,7 +282,7 @@ function wfstore_detail($request_id,$item_id,$it_category,$holding_id,$company_i
     $suggested = suggested_list($it_category,$holding_id,$company_id,$division_id,$position_id)->count();
     $wf_detail = WorkflowDetail::where('workflow_id',$checker->id)->count();
     if ($wf_detail == $suggested){
-        Workflow::where('id',$checker->id)->update(['completed_by'=>Auth::user()->id,'completed_at'=>Carbon\Carbon::now()]);
+        Workflow::where('id',$checker->id)->update(['completed_by'=>Auth::user()->id,'completed_at'=>Carbon::now()]);
     }
 }
 #WORKFLOW HR CHECK & USERS
@@ -261,6 +312,7 @@ function wfstore_email($request_id,$item_id,$comment,$it_category,$type_request=
             }
         }
     } else {
+        $checker = Workflow::where('request_id',$request_id)->where('it_category',$it_category)->first();
         $cleared_item = ClearedItem::where('onboard_id',$onrequest->onboard_id)->where('item_id',$item_id)->first();
         if($cleared_item == null)
         {
@@ -269,6 +321,14 @@ function wfstore_email($request_id,$item_id,$comment,$it_category,$type_request=
             $cleared_item->item_id = $item_id;
             $cleared_item->created_by = Auth::user()->id;
             $cleared_item->save();
+        }
+
+        $exit_board = suggested_detail($onrequest->onboard_id,'','',$it_category)->count();
+        $clear_board = ClearedItem::whereHas('item',function ($q) use ($it_category){
+            $q->where('subdivision_id',$it_category);
+        })->where('onboard_id',$onrequest->onboard_id)->count();
+        if($clear_board == $exit_board){
+            Workflow::where('id',$checker->id)->update(['completed_by'=>Auth::user()->id,'completed_at'=>Carbon::now()]);
         }
     }
 
@@ -281,9 +341,8 @@ function wfstore_email($request_id,$item_id,$comment,$it_category,$type_request=
         $checker->it_category = $it_category;
         $checker->comment = $comment;
         $checker->completed_by = Auth::user()->id;
-        $checker->completed_at = Carbon\Carbon::now();
+        $checker->completed_at = Carbon::now();
         $checker->save();
-
     }
 }
 #SUGGESTED LIST FOR CHECKER,USERS,HR
@@ -308,4 +367,9 @@ function suggested_detail($onboard_id,$request_id,$area,$it_category){
         })->where('onboard_id',$onboard_id)->get();
     }
     return $suggested_detail;
+}
+#ACTIVITY LOG
+function activity_log($content_id,$content_type, $description, $details,$update)
+{
+    Activity::log(['contentId'=> $content_id,'contentType' => $content_type,'description' => $description ,'details'=> $details,'updated' => $update]);
 }

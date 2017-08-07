@@ -19,5 +19,13 @@ class Item extends Model
     public function suggested_list(){
         return $this->hasMany(SuggestedList::class,'item_id','id');
     }
-
+    public function prepared_item() {
+        return $this->hasMany(PreparedItem::class,'item_id','id');
+    }
+    public function checked_item(){
+        return $this->hasMany(CheckedItem::class, 'item_id','id');
+    }
+    public function employee_item(){
+        return $this->hasMany(OnboardItem::class,'item_id','id');
+    }
 }

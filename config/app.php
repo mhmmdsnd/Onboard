@@ -128,6 +128,7 @@ return [
          */
         Adldap\Laravel\AdldapServiceProvider::class,
         Adldap\Laravel\AdldapAuthServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
@@ -151,7 +152,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Laratrust\LaratrustServiceProvider::class,
-        JeroenNoten\LaravelAdminLte\ServiceProvider::class,
+        Regulus\ActivityLog\ActivityLogServiceProvider::class,
+        Yajra\Datatables\DatatablesServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -176,7 +178,9 @@ return [
 
     'aliases' => [
 
+        'Activity' => Regulus\ActivityLog\Models\Activity::class,
         'Adldap' => Adldap\Laravel\Facades\Adldap::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
@@ -185,6 +189,7 @@ return [
         'Config' => Illuminate\Support\Facades\Config::class,
         'Cookie' => Illuminate\Support\Facades\Cookie::class,
         'Crypt' => Illuminate\Support\Facades\Crypt::class,
+        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
         'DB' => Illuminate\Support\Facades\DB::class,
         'Eloquent' => Illuminate\Database\Eloquent\Model::class,
         'Event' => Illuminate\Support\Facades\Event::class,

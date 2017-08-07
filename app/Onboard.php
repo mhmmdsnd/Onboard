@@ -31,6 +31,9 @@ class Onboard extends Model
     public function grade(){
         return $this->hasOne(Grade::class,'id','grade_id');
     }
+    public function users(){
+        return $this->hasOne(User::class,'id','created_by');
+    }
     public function onboard_detail()
     {
         return $this->hasMany(OnboardDetail::class,'onboard_id','id');

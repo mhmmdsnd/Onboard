@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Human Resource</title>
+    <title>Human Resource - @yield('title','')</title>
     <link href="{{ asset('/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
 	<link href="{{ asset('/bootstrap/font-awesome/4.5.0/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
    	<link href="{{ asset('/bootstrap/css/fonts.googleapis.com.css') }}" rel="stylesheet" type="text/css" />
@@ -48,7 +48,7 @@
                 @else
                 <li class="light-blue dropdown-modal">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                    	<img class="nav-user-photo" src="{{ asset('/bootstrap/images/avatar2.png') }}" alt="" />
+                    	<img class="nav-user-photo" src="{{ asset('/bootstrap/images/avatar2.png') }}" alt="avatar" title="avatar" />
                         <span class="user-info">
                             <small>Welcome, </small>{{ Auth::user()->name }}</span>
                         <i class="ace-icon fa fa-caret-down"></i>
@@ -74,8 +74,8 @@
             try{ace.settings.loadState('sidebar')}catch(e){}
         </script>
 		<ul class="nav nav-list">
-		    @role(['admin','hr-rct','hr'])
-            <li class="">
+		    @role(['admin','hr-rct','hr','management'])
+            <li class="open">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-desktop"></i>
                     <span class="menu-text">
@@ -102,7 +102,7 @@
                 </ul>
 			</li>
             @endrole
-            <li class="">
+            <li class="open">
                 <a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-desktop"></i>
                     <span class="menu-text">
@@ -127,7 +127,7 @@
                 </ul>
 			</li>
             @role('admin')
-            <li class="">
+            <li class="open">
             	<a href="#" class="dropdown-toggle">
                     <i class="menu-icon fa fa-desktop"></i>
                     <span class="menu-text">
@@ -157,14 +157,6 @@
         	@if (!Auth::guest())
         	<div class="breadcrumbs ace-save-state" id="breadcrumbs">
                 <ul class="breadcrumb">
-                    <li>
-                        <i class="ace-icon fa fa-home home-icon"></i>
-                        <a href="#">Home</a>
-                    </li>
-                    <li>
-                        @yield('sections')
-                    </li>
-                    <li class="active">@yield('title')</li>
                 </ul><!-- /.breadcrumb -->
             </div>
             @endif

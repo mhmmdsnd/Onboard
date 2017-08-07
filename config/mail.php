@@ -55,7 +55,8 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => ['address' => "system@sinarmasmining.com", 'name' => "Onboarding Application"],
+    'to' => ['address' => 'heryanto@sinarmasmining.com', 'name' => 'Heryanto'],
 
     /*
     |--------------------------------------------------------------------------

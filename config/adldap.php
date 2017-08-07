@@ -78,151 +78,32 @@ return [
 
             'connection_settings' => [
 
-                /*
-                |--------------------------------------------------------------------------
-                | Account Prefix
-                |--------------------------------------------------------------------------
-                |
-                | The account prefix option is the prefix of your user accounts in AD.
-                |
-                | This string is prepended to authenticating users usernames.
-                |
-                */
-
                 'account_prefix' => env('ADLDAP_ACCOUNT_PREFIX', ''),
-
-                /*
-                |--------------------------------------------------------------------------
-                | Account Suffix
-                |--------------------------------------------------------------------------
-                |
-                | The account suffix option is the suffix of your user accounts in AD.
-                |
-                | This string is appended to authenticating users usernames.
-                |
-                */
-
-                'account_suffix' => env('ADLDAP_ACCOUNT_SUFFIX', '@sinarmasmining.com'),
-
-                /*
-                |--------------------------------------------------------------------------
-                | Domain Controllers
-                |--------------------------------------------------------------------------
-                |
-                | The domain controllers option is an array of servers located on your
-                | network that serve Active Directory. You can insert as many servers or
-                | as little as you'd like depending on your forest (with the
-                | minimum of one of course).
-                |
-                | These can be IP addresses of your server(s), or the host name.
-                |
-                */
-
+                'account_suffix' => env('ADLDAP_ACCOUNT_SUFFIX', ''),
                 'domain_controllers' => explode(' ', env('ADLDAP_CONTROLLERS', '172.20.12.120')),
-
-                /*
-                |--------------------------------------------------------------------------
-                | Port
-                |--------------------------------------------------------------------------
-                |
-                | The port option is used for authenticating and binding to your AD server.
-                |
-                */
-
                 'port' => env('ADLDAP_PORT', 389),
-
-                /*
-                |--------------------------------------------------------------------------
-                | Timeout
-                |--------------------------------------------------------------------------
-                |
-                | The timeout option allows you to configure the amount of time in
-                | seconds that your application waits until a response
-                | is received from your LDAP server.
-                |
-                */
-
                 'timeout' => env('ADLDAP_TIMEOUT', 5),
-
-                /*
-                |--------------------------------------------------------------------------
-                | Base Distinguished Name
-                |--------------------------------------------------------------------------
-                |
-                | The base distinguished name is the base distinguished name you'd
-                | like to perform query operations on. An example base DN would be:
-                |
-                |        dc=corp,dc=acme,dc=org
-                |
-                | A correct base DN is required for any query results to be returned.
-                |
-                */
-
                 'base_dn' => env('ADLDAP_BASEDN', 'DC=smm,DC=com'),
-
-                /*
-                |--------------------------------------------------------------------------
-                | Administrator Account Suffix
-                |--------------------------------------------------------------------------
-                |
-                | This option allows you to set a different account suffix for your
-                | configured administrator account upon binding.
-                |
-                | If left empty, your `account_suffix` option will be used.
-                |
-                */
-
                 'admin_account_suffix' => env('ADLDAP_ADMIN_ACCOUNT_SUFFIX', ''),
-
-                /*
-                |--------------------------------------------------------------------------
-                | Administrator Username & Password
-                |--------------------------------------------------------------------------
-                |
-                | When connecting to your AD server, a username and password is required
-                | to be able to query and run operations on your server(s). You can
-                | use any user account that has these permissions. This account
-                | does not need to be a domain administrator unless you
-                | require changing and resetting user passwords.
-                |
-                */
-
-                'admin_username' => env('ADLDAP_ADMIN_USERNAME', 'bitrix'),
+                'admin_username' => env('ADLDAP_ADMIN_USERNAME', 'bitrix@sinarmasmining.com'),
                 'admin_password' => env('ADLDAP_ADMIN_PASSWORD', 'SysDev2017'),
-
-                /*
-                |--------------------------------------------------------------------------
-                | Follow Referrals
-                |--------------------------------------------------------------------------
-                |
-                | The follow referrals option is a boolean to tell active directory
-                | to follow a referral to another server on your network if the
-                | server queried knows the information your asking for exists,
-                | but does not yet contain a copy of it locally.
-                |
-                | This option is defaulted to false.
-                |
-                */
-
                 'follow_referrals' => false,
-
-                /*
-                |--------------------------------------------------------------------------
-                | SSL & TLS
-                |--------------------------------------------------------------------------
-                |
-                | If you need to be able to change user passwords on your server, then an
-                | SSL or TLS connection is required. All other operations are allowed
-                | on unsecured protocols.
-                | 
-                | One of these options are definitely recommended if you 
-                | have the ability to connect to your server securely.
-                |
-                */
-
                 'use_ssl' => false,
                 'use_tls' => false,
 
+            ],[
+                'account_prefix' => env('ADLDAP_ACCOUNT_PREFIX', ''),
+                'account_suffix' => env('ADLDAP_ACCOUNT_SUFFIX', ''),
+                'domain_controllers' => explode(' ', env('ADLDAP_CONTROLLERS', '10.10.13.8')),
+                'port' => env('ADLDAP_PORT', 389),
+                'timeout' => env('ADLDAP_TIMEOUT', 5),
+                'base_dn' => env('ADLDAP_BASEDN', 'DC=beraucoal,DC=co,DC=id'),
+                'admin_account_suffix' => env('ADLDAP_ADMIN_ACCOUNT_SUFFIX', ''),
+                'admin_username' => env('ADLDAP_ADMIN_USERNAME', 'bitrix@beraucoal.co.id'),
+                'admin_password' => env('ADLDAP_ADMIN_PASSWORD', 'P@ssw0rd123'),
+                'follow_referrals' => false,
+                'use_ssl' => false,
+                'use_tls' => false,
             ],
 
         ],

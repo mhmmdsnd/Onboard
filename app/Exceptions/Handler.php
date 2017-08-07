@@ -45,6 +45,26 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        switch ($e) {
+            case ($e instanceof AuthorizationException) :
+                return response()->view('errors.'.$e->getStatusCode(),[], $e->getStatusCode());
+                break;
+            case ($e instanceof HttpException) :
+                return response()->view('errors.'.$e->getStatusCode(),[], $e->getStatusCode());
+                break;
+            case ($e instanceof ModelNotFoundException) :
+                return response()->view('errors.'.$e->getStatusCode(),[], $e->getStatusCode());
+                break;
+            case ($e instanceof ValidationException) :
+                return response()->view('errors.'.$e->getStatusCode(),[], $e->getStatusCode());
+                break;
+            case ($e instanceof InvalidArgumentException) :
+                return response()->view('errors.'.$e->getStatusCode(),[], $e->getStatusCode());
+                break;
+            default :
+                return response()->view('errors.render');
+        }
+        //echo $e->getStatusCode();
         return parent::render($request, $e);
     }
 }

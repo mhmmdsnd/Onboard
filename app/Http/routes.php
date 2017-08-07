@@ -18,67 +18,77 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/ListOnBoard/usermail', 'ListboardController@usermail');
+Route::get('/ListOnBoard/usermail', 'Onboard\ListboardController@usermail');
 
 Route::group(['middleware' => ['role:itadmin|admin']], function() {    #ITADMIN
-    Route::get('/ITAdm/{onboardId}',['as'=>'ITAdm','uses'=>'OnboardController@itadm']);
-    Route::post('/ITAdm', ['as'=>'ITAdm','uses'=>'OnboardController@itstore']);
+    Route::get('/ITAdm/{onboardId}',['as'=>'ITAdm','uses'=>'Onboard\OnboardController@itdetail']);
+    Route::post('/ITAdm', ['as'=>'ITAdm','uses'=>'Onboard\OnboardController@itstore']);
 });
 
 Route::group(['middleware' => ['role:itinfra|admin']], function() {  #ITINFRA
-    Route::get('/ITInfra/{onboardId}','OnboardController@itinf');
-    Route::post('/ITInfra', ['as'=>'ITInfra','uses'=>'OnboardController@itstore']);
+    Route::get('/ITInfra/{onboardId}',['as'=>'ITInfra','uses'=>'Onboard\OnboardController@itdetail']);
+    Route::post('/ITInfra', ['as'=>'ITInfra','uses'=>'Onboard\OnboardController@itstore']);
 });
 
 Route::group(['middleware' => ['role:itapps|admin']], function() {  #ITAPPS
-    Route::get('/ITApps/{onboardId}','OnboardController@itapp');
-    Route::post('/ITApps', ['as'=>'ITApps','uses'=>'OnboardController@itstore']);
+    Route::get('/ITApps/{onboardId}',['as'=>'ITApps','uses'=>'Onboard\OnboardController@itdetail']);
+    Route::post('/ITApps', ['as'=>'ITApps','uses'=>'Onboard\OnboardController@itstore']);
 });
 
-Route::group(['middleware' => ['role:hr|admin|hr-rct']], function() {
+Route::group(['middleware' => ['role:hr|admin|hr-rct|management']], function() {
     #ONBOARD REQUEST
-    Route::get('/onboard','OnboardController@create');
-    Route::post('/onboard','OnboardController@store');
+    Route::get('/onboard',['as'=>'onboard','uses'=>'Onboard\OnboardController@create']);
+    Route::get('/onboard/{request_id}',['as'=>'onboard','uses'=>'Onboard\OnboardController@detail']);
+    Route::post('/onboard',['as'=>'onboard','uses'=>'Onboard\OnboardController@store']);
+    Route::post('/hrdetail',['as'=>'hrdetail','uses'=>'Onboard\OnboardController@update']);
     #UNTUK HR CHECKLIST
-    Route::get('/review/{onboardId}','OnboardController@reviewer');
-    Route::post('/review','OnboardController@createstore');
+    Route::get('/review/{onboardId}','Onboard\HRGAController@reviewer');
+    Route::post('/review','Onboard\HRGAController@createstore');
     #LIST EMPLOYEE
-    Route::get('/employee','Master\EmployeeController@index');
-    Route::get('/employee/{employeeid}','Master\EmployeeController@show');
-    Route::post('/employee','Master\EmployeeController@store');
-
+    Route::get('employee/data-employee','Master\EmployeeController@dataEmployee');
+    Route::resource('/employee','Master\EmployeeController');
 });
 #ROUTE UNTUK EXIT REQUEST
 Route::group(['middleware' => ['role:itadmin|itinfra|itapps|hr|admin|ga']], function() {
-    Route::get('/hrexit', 'HRExitController@index'); #INDEX EXIT
-    Route::get('/hrexit/{onboard_id}', 'HRExitController@hrexit'); #VIEW EXIT
-    Route::post('/hrexit', 'HRExitController@store'); #STORE FORM EXIT
-    Route::post('/ITAdm/Exit', ['as'=>'ITAdm/Exit','uses'=>'HRExitController@itstore']); #IT ADMIN EXIT
-    Route::post('/ITInfra/Exit', ['as'=>'ITInfra/Exit','uses'=>'HRExitController@itstore']); #IT INFRA EXIT
-    Route::post('/ITApps/Exit', ['as'=>'ITApps/Exit','uses'=>'HRExitController@itstore']); #IT APPS EXIT
-    Route::post('/hr-detail/exit', ['as'=>'hr-detail/exit','uses'=>'HRExitController@itstore']); #HR DETAIL EXIT
-    Route::post('/ga-detail/exit', ['as'=>'ga-detail/exit','uses'=>'HRExitController@itstore']); #GA DETAIL EXIT
+    Route::get('/hrexit', 'Onboard\HRExitController@index'); #INDEX EXIT
+    Route::get('/hrexit/{onboard_id}', 'Onboard\HRExitController@hrexit'); #VIEW EXIT
+    Route::post('/hrexit', 'Onboard\HRExitController@store'); #STORE FORM EXIT
+    Route::post('/ITAdm/exit', ['as'=>'ITAdm/exit','uses'=>'Onboard\HRExitController@itstore']); #IT ADMIN EXIT
+    Route::post('/ITInfra/exit', ['as'=>'ITInfra/exit','uses'=>'Onboard\HRExitController@itstore']); #IT INFRA EXIT
+    Route::post('/ITApps/exit', ['as'=>'ITApps/exit','uses'=>'Onboard\HRExitController@itstore']); #IT APPS EXIT
+    Route::post('/hr-detail/exit', ['as'=>'hr-detail/exit','uses'=>'Onboard\HRExitController@itstore']); #HR DETAIL EXIT
+    Route::post('/ga-detail/exit', ['as'=>'ga-detail/exit','uses'=>'Onboard\HRExitController@itstore']); #GA DETAIL EXIT
+});
+Route::group(['middleware' => ['role:hr|admin|ga']], function (){
+    #GA DETAIL (ROLE : GA)
+    Route::get('/ga-detail/{request_id}',['as'=>'ga-detail','uses'=>'Onboard\OnboardController@itdetail']);
+    Route::post('/ga-detail/',['as'=>'ga-detail','uses'=>'Onboard\OnboardController@itstore']);
+    #HR DETAIL (ROLE : HR)
+    Route::get('/hr-detail/{request_id}',['as'=>'hr-detail','uses'=>'Onboard\OnboardController@itdetail']);
+    Route::post('/hr-detail/',['as'=>'hr-detail','uses'=>'Onboard\OnboardController@itstore']);
 });
 
-
-Route::group(['middleware' => ['role:user|admin']], function() {
+Route::group(['middleware' => ['role:user|admin|management|hrcomb']], function() {
     #UNTUK USER MELAKUKAN CHECKLIST
-    Route::get('/users/{onboardId}','OnboardController@userview');
-    Route::post('/users','OnboardController@userstore');
-
+    Route::get('/users/{onboardId}','Onboard\HRGAController@userview');
+    Route::post('/users','Onboard\HRGAController@userstore');
 });
 
-#Route::resource('ListOnBoard','ListboardController');
-Route::get('/ListOnBoard','ListboardController@index');
-#GA DETAIL (ROLE : GA)
-Route::get('/ga-detail/{request_id}','Onboard\HRGAController@show');
-Route::post('/ga-detail/',['as'=>'ga-detail','uses'=>'OnboardController@itstore']);
-#HR DETAIL (ROLE : HR)
-Route::get('/hr-detail/{request_id}','Onboard\HRGAController@hrshow');
-Route::post('/hr-detail/',['as'=>'hr-detail','uses'=>'OnboardController@itstore']);
+#ROUTE FOR ALL USERS
+Route::group(['middleware'=>['role:admin']], function (){
+    Route::resource('manage-role','Admin\ManageController');
+    Route::resource('company','Master\CompanyController');
+    Route::resource('holding','Master\HoldingController');
+    Route::resource('Division','Master\DivisionController');
+    Route::get('/slareport/',['as'=>'slareport','uses'=>'Onboard\ListboardController@slareport']);
+    Route::post('/slareport/',['as'=>'slareport','uses'=>'Onboard\ListboardController@generateonboard']);
+});
 
-Route::resource('Division','Master\DivisionController');
-Route::get('/slareport/',['as'=>'slareport','uses'=>'ListboardController@slareport']);
-Route::post('/slareport/',['as'=>'slareport','uses'=>'ListboardController@generatesla']);
-Route::get('/ListOnBoard/divisions', ['as'=>'listonboard/divisions','uses'=>'ListboardController@show']);
-Route::get('/ListOnBoard/company', ['as'=>'listonboard/company','uses'=>'ListboardController@showcompany']);
+Route::group(['middleware'=>'auth'], function (){
+    Route::get('/ListOnBoard','Onboard\ListboardController@index');
+    Route::get('/ListOnBoard/divisions', ['as'=>'listonboard/divisions','uses'=>'Onboard\ListboardController@show']);
+    Route::get('/ListOnBoard/company', ['as'=>'listonboard/company','uses'=>'Onboard\ListboardController@showcompany']);
+    Route::get('/ListOnBoard/excel', ['as'=>'listonboard/excel','uses'=>'Onboard\ListboardController@exportexcel']);
+});
+
+#ROUTE FOR ROLE_USER
